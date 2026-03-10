@@ -1,0 +1,2 @@
+# Environment variables (ignored by git)
+.env
