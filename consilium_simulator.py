@@ -1,5 +1,5 @@
 # Scenariusz Konsylium (Workflow)
-# 
+#
 # Inicjacja: Przedstawienie danych pacjentki (Raport Radiologiczny i Patomorfologiczny).
 # Runda 1 (Diagnostyka): Patomorfolog i Radiolog oceniają kompletność danych.
 # Runda 2 (Strategia): Onkolog Kliniczny i Chirurg spierają się o kolejność (Chemia vs Operacja).
@@ -21,9 +21,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from prompts.prompts import Prompts
-
 import os
 from dotenv import load_dotenv
+import re
+
 
 # Roles
 ROLES = [
@@ -34,10 +35,12 @@ ROLES = [
     "Radioterapeuta"
 ]
 
+
 # Read case data
 def read_case_data(file_path) -> str:
     with open(file_path, 'r', encoding='utf-8') as f:
         return f.read()
+
 
 # Initialize Selenium
 def init_selenium() -> webdriver.Firefox:
@@ -46,10 +49,11 @@ def init_selenium() -> webdriver.Firefox:
     driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()), options=options)
     return driver
 
+
 # Login to GitHub (placeholder, user needs to log in manually or provide credentials)
 def login_github(driver: webdriver.Firefox) -> None:
     driver.get("https://github.com/login")
-    
+
     # try to read credentials from environment variables
     load_dotenv()
     user = os.getenv("GITHUB_USER")
@@ -61,7 +65,7 @@ def login_github(driver: webdriver.Firefox) -> None:
         driver.find_element(By.XPATH, "//*[@id='password']").send_keys(pwd)
         driver.find_element(By.XPATH, "/html/body/div[1]/div[4]/main/div/div[2]/form/div[3]/input").click()
         # optionally wait for successful login by checking profile icon
-        #WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CSS_SELECTOR, "summary[aria-label=\"View profile and more\"]")))
+        # WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CSS_SELECTOR, "summary[aria-label=\"View profile and more\"]")))
     else:
         # fallback to manual login
         input("Please log in to GitHub and press Enter...")
@@ -71,11 +75,14 @@ def login_github(driver: webdriver.Firefox) -> None:
 def scrape_models() -> list:
     # Placeholder: hardcoded models for testing
     models = [
-        {"name": "gpt-4-1-mini", "link": "https://github.com/marketplace/models/azure-openai/gpt-4-1-mini/playground"},#"https://github.com/marketplace/models/azure-openai/gpt-5/playground"},
+        {"name": "gpt-4-1-mini", "link": "https://github.com/marketplace/models/azure-openai/gpt-4-1-mini/playground"},
+        # "https://github.com/marketplace/models/azure-openai/gpt-5/playground"},
         {"name": "MAI-DS-R1", "link": "https://github.com/marketplace/models/azureml/MAI-DS-R1/playground"},
         {"name": "Grok 3", "link": "https://github.com/marketplace/models/azureml-xai/grok-3/playground"},
-        {"name": "Llama 3.1 405B", "link": "https://github.com/marketplace/models/azureml-meta/Meta-Llama-3-1-405B-Instruct/playground"},
-        {"name": "Mistral Medium", "link": "https://github.com/marketplace/models/azureml-mistral/mistral-medium-2505/playground"}
+        {"name": "Llama 3.1 405B",
+         "link": "https://github.com/marketplace/models/azureml-meta/Meta-Llama-3-1-405B-Instruct/playground"},
+        {"name": "Mistral Medium",
+         "link": "https://github.com/marketplace/models/azureml-mistral/mistral-medium-2505/playground"}
     ]
     return models
 
@@ -84,6 +91,7 @@ def get_role_models(models: list) -> dict:
     selected = models
     role_model = dict(zip(ROLES, selected))
     return role_model
+
 
 # Construct prompt for a role
 def construct_prompt(role: str, case_data: str, previous_responses: dict) -> str:
@@ -96,18 +104,27 @@ def construct_prompt(role: str, case_data: str, previous_responses: dict) -> str
     prompt += "\nPodziel się swoją opinią na temat przypadku, uwzględniając pytania/problemy omawiane w konsylium."
     return prompt
 
+
 # Call model via Selenium (assuming playground interface)
 def call_model(driver, model_link, prompt) -> str:
     driver.get(model_link)
     # Assume there's an input field and submit button
-    input_field = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".PlaygroundChatInput-module__textarea__utifr")))  # Adjust
+    input_field = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".PlaygroundChatInput-module__textarea__utifr")))  # Adjust
     input_field.send_keys(prompt)
     input_field.send_keys(Keys.RETURN)
     # Wait for response
     time.sleep(15)  # Adjust based on expected response time
-    response_element = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR, ".tmp-py-3 > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)")))  # Adjust
+    response_element = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                                                       ".tmp-py-3 > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)")))  # Adjust
     response = response_element.text
     return response
+
+
+def remove_think_blocks(text: str) -> str:
+    # usuwa wszystko pomiędzy <think> ... </think>, łącznie ze znacznikami
+    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+
 
 # Main simulation with scenario rounds
 def simulate_consortium(driver: webdriver.Firefox, role_model: dict, case_data: str) -> tuple[dict, list]:
@@ -118,20 +135,30 @@ def simulate_consortium(driver: webdriver.Firefox, role_model: dict, case_data: 
     # define the workflow rounds
     rounds = [
         # initiation already covered implicitly by including case data in each prompt
-        ["Patomorfolog", "Radiolog"],               # Runda 1 (Diagnostyka): Patomorfolog i Radiolog oceniają kompletność danych.
-        ["Onkolog Kliniczny", "Chirurg Onkolog"],   # Runda 2 (Strategia): Onkolog Kliniczny i Chirurg spierają się o kolejność (Chemia vs Operacja).
-        ["Radioterapeuta"]                          # Runda 3 (Dopełnienie): Radioterapeuta określa zakres leczenia regionalnego.
+        ["Patomorfolog", "Radiolog"],  # Runda 1 (Diagnostyka): Patomorfolog i Radiolog oceniają kompletność danych.
+        ["Onkolog Kliniczny", "Chirurg Onkolog"],
+        # Runda 2 (Strategia): Onkolog Kliniczny i Chirurg spierają się o kolejność (Chemia vs Operacja).
+        ["Radioterapeuta"]  # Runda 3 (Dopełnienie): Radioterapeuta określa zakres leczenia regionalnego.
     ]
+
+    role_response_name = {"Patomorfolog": "PATHOMORPHOLOG_COMMENT", "Radiolog": "RADIOLOG_COMMENT",
+                          "Onkolog Kliniczny": "ONKOLOG_COMMENT", "Chirurg Onkolog": "CHIRURG_COMMENT",
+                          "Radioterapeuta": "RADIOTERAPEUTA_COMMENT"}
+
+    additonal_data = {"RADIOLOGY_REPORT": prompts.RADIOLOGY_REPORT,
+                      "PATHOMORPHOLOGICAL_REPORT": prompts.PATHOMORPHOLOGICAL_REPORT}
 
     for idx, round_roles in enumerate(rounds, start=1):
         print(f"--- Runda {idx}: {' & '.join(round_roles)} ---")
         for role in round_roles:
             model = role_model[role]
-            prompt = prompts.get_prompt_based_on_role_x(role=role, additional_data=prompts.RADIOLOGY_REPORT)
+            # prompt = prompts.get_prompt_based_on_role_x(role=role, additional_data=prompts.RADIOLOGY_REPORT)
+            prompt = prompts.get_prompt_based_on_role(role=role, add_data=additonal_data)
             print(f"Role: {role}, Model: {model['name']}, Link: {model['link']}")
             print(f"Prompt: {prompt}")
             response = call_model(driver, model["link"], prompt)
-            responses[role] = response
+            responses[role] = remove_think_blocks(response)
+            additonal_data[role_response_name[role]] = responses[role]
             logs.append({
                 "role": role,
                 "model": model["name"],
@@ -140,6 +167,7 @@ def simulate_consortium(driver: webdriver.Firefox, role_model: dict, case_data: 
             })
     # conclusion is just summarizing, we can optionally add a final note
     return responses, logs
+
 
 # Generate report
 def generate_report(responses: dict, logs: list) -> str:
@@ -152,14 +180,15 @@ def generate_report(responses: dict, logs: list) -> str:
         report += f"Rola: {log['role']}, Model: {log['model']}\nPrompt: {log['prompt']}\nResponse: {log['response']}\n\n"
     return report
 
+
 # Main function
 def main() -> None:
-    case_file = "konsulium_1"
+    case_file = "consilium_1"
     case_data = read_case_data(case_file)
-    
+
     driver = init_selenium()
     try:
-        login_github(driver) 
+        login_github(driver)
         models = scrape_models()  # Now hardcoded
         role_model = get_role_models(models)
         responses, logs = simulate_consortium(driver, role_model, case_data)
@@ -169,6 +198,7 @@ def main() -> None:
         print("Raport zapisany w report.txt")
     finally:
         driver.quit()
+
 
 if __name__ == "__main__":
     main()
