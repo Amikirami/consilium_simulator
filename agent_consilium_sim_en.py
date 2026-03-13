@@ -1,9 +1,26 @@
 from dataclasses import dataclass, field
 from typing import List, Dict
-# from githubkit import GitHub
 from prompts.prompts_en import PromptsEN
 import os
 import httpx
+import logging
+
+
+# Logger config
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+# )
+# logger = logging.getLogger(__name__)
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    filemode='a',
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    filename='agconsim.log'
+)
+logger = logging.getLogger(__name__)
 
 
 MODERATOR_PROMPT = PromptsEN.MODERATOR
@@ -23,6 +40,7 @@ def call_llm(model: str, system_prompt: str, messages: List[Dict[str, str]]):
     Calls the GitHub Models endpoint using httpx.
     Mirrors the behavior of the working curl command.
     """
+    logger.info(f"Calling LLM: model={model}, messages_count={len(messages)}")
 
     url = "https://models.github.ai/inference/chat/completions"
 
@@ -33,7 +51,8 @@ def call_llm(model: str, system_prompt: str, messages: List[Dict[str, str]]):
         "Content-Type": "application/json",
     }
 
-    print("\nMODEL:", model, "\n")
+    logger.debug(
+        f"Sending to {url}, first message preview: {messages[0]['content'][:100]}..." if messages else "No messages")
 
     payload = {
         "model": f"{model}",
@@ -45,14 +64,24 @@ def call_llm(model: str, system_prompt: str, messages: List[Dict[str, str]]):
         "temperature": 0.2,
     }
 
-    # httpx behaves more like curl than requests
-    with httpx.Client(timeout=30.0, verify=False) as client:
-        response = client.post(url, headers=headers, json=payload)
+    try:
+        with httpx.Client(timeout=30.0, verify=False) as client:
+            logger.debug("Sending HTTP POST request...")
+            response = client.post(url, headers=headers, json=payload)
 
-    # Raise if server returned an error
-    response.raise_for_status()
+        # Raise if server returned an error
+        response.raise_for_status()
 
-    return response.json()["choices"][0]["message"]["content"]
+        result = response.json()["choices"][0]["message"]["content"]
+        logger.info(f"LLM response received successfully ({len(result)} chars)")
+        return result
+
+    except httpx.HTTPStatusError as e:
+        logger.error(f"HTTP error {e.response.status_code}: {e.response.text}")
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error in call_llm: {str(e)}")
+        raise
 
 
 @dataclass
@@ -64,10 +93,19 @@ class Agent:
 
     def send(self, content: str) -> str:
         """Send a message to this agent and get its reply."""
+        logger.info(f"Agent '{self.name}' received message: {content[:100]}...")
+
         self.history.append({"role": "user", "content": content})
-        reply = call_llm(self.model, self.system_prompt, self.history)
-        self.history.append({"role": "assistant", "content": reply})
-        return reply
+        logger.debug(f"Agent history length: {len(self.history)}")
+
+        try:
+            reply = call_llm(self.model, self.system_prompt, self.history)
+            self.history.append({"role": "assistant", "content": reply})
+            logger.info(f"Agent '{self.name}' replied ({len(reply)} chars)")
+            return reply
+        except Exception as e:
+            logger.error(f"Agent '{self.name}' failed to respond: {str(e)}")
+            raise
 
 
 def run_tumor_board(case_description: str, rounds: int = 2):
@@ -139,6 +177,6 @@ def run_tumor_board(case_description: str, rounds: int = 2):
 
 
 if __name__ == "__main__":
-    case = PromptsEN.DIAGNOSIS + "\nLaobratory results\n" + PromptsEN.LAB_RESULTS
+    case = PromptsEN.DIAGNOSIS + PromptsEN.LAB_RESULTS
     run_tumor_board(case_description=case, rounds=1)
 
