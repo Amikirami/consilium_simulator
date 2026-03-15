@@ -6,6 +6,7 @@ from typing import Dict, List, Optional
 import asyncio
 import json
 from prompts.prompts_en import PromptsEN
+import re
 
 
 model_list = ["openai/gpt-4.1-mini",
@@ -43,7 +44,7 @@ class GitHubModel:
         payload = {
             "model": self.model_name,
             "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": 500,
+            "max_tokens": 800,
             "temperature": 0.2,
             "stream": False
         }
@@ -59,6 +60,7 @@ class GitHubModel:
                 return "No model response"
 
         except httpx.HTTPStatusError as e:
+            print(f"API error {e.response.status_code}: {e.response.text[:100]}")
             return f"API error {e.response.status_code}: {e.response.text[:100]}"
         except Exception as e:
             return f"Error: {str(e)}"
@@ -78,15 +80,15 @@ class Agent:
     def _build_context(self, incoming: str) -> str:
         recent_memory = "\n".join(self.memory[-3:])
         return f"""You are {self.name} ({self.role}).
-Specialization: {self.specialization}
-
-MEMORY ({len(self.memory)} facts):
-{recent_memory}
-
-NEW MESSAGE:
-{incoming}
-
-RESPOND according to your role, use facts from memory. Be brief and specific."""
+            Specialization: {self.specialization}
+            
+            MEMORY ({len(self.memory)} facts):
+            {recent_memory}
+            
+            NEW MESSAGE:
+            {incoming}
+            
+            RESPOND according to your role, use facts from memory. Be brief and specific."""
 
     async def handle_message(self, msg: ACLMessage) -> Optional[ACLMessage]:
         prompt = self._build_context(msg.content)
@@ -234,7 +236,10 @@ async def main():
     #     "Segmental infarction of right kidney (CT)",
     #     "D-dimers 4500 ng/ml"
     # ]
-    facts = [PromptsEN.DIAGNOSIS, PromptsEN.LAB_RESULTS]
+
+    # facts = [PromptsEN.DIAGNOSIS, PromptsEN.LAB_RESULTS]
+    facts = re.split(r"\n+\s*", PromptsEN.DIAGNOSIS)
+    facts.extend(re.split(r"\n+\s*", PromptsEN.LAB_RESULTS))
 
     conv_id = await manager.start_conversation(topic, facts, ["Cardiologist", "Nephrologist", "Hematologist"])
     await asyncio.sleep(2)
