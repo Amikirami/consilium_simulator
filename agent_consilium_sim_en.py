@@ -5,7 +5,9 @@ from prompts.prompts_en import PromptsEN
 import os
 import requests
 import httpx
+import dotenv
 
+dotenv.load_dotenv()
 
 MODERATOR_PROMPT = PromptsEN.MODERATOR
 PATHOLOGIST_PROMPT = PromptsEN.PATHOLOGIST
@@ -15,6 +17,34 @@ SURGICAL_ONCOLOGIST_PROMPT = PromptsEN.SURGICAL_ONCOLOGIST
 
 # TODO: hard-coded model, any other will work?
 #
+def get_github_models():
+    url = "https://models.github.ai/catalog/models"
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
+        "X-GitHub-Api-Version": "2022-11-28"
+    }
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status() # Check for HTTP errors
+        
+        models = response.json()
+        
+        print(f"{'ID':<30} | {'Publisher':<15} | {'Modalities'}")
+        print("-" * 65)
+        
+        for model in models:
+            m_id = model.get('id', 'N/A')
+            publisher = model.get('publisher', 'N/A')
+            modalities = ", ".join(model.get('modalities', []))
+            print(f"{m_id:<30} | {publisher:<15} | {modalities}")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching models: {e}")
+
+
+
 def call_llm(system_prompt: str, messages: List[Dict[str, str]]):
     """
     Calls the GitHub Models endpoint using httpx.
@@ -22,7 +52,7 @@ def call_llm(system_prompt: str, messages: List[Dict[str, str]]):
     """
 
     url = "https://models.github.ai/inference/chat/completions"
-
+    
     headers = {
         "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
@@ -70,6 +100,8 @@ def run_tumor_board(case_description: str, rounds: int = 2):
     moderator = Agent("moderator", MODERATOR_PROMPT)
     pathologist = Agent("pathologist", PATHOLOGIST_PROMPT)
     surgeon = Agent("surgical_oncologist", SURGICAL_ONCOLOGIST_PROMPT)
+
+    get_github_models()
 
     # 1. Moderator opens the meeting with the case
     moderator_intro_prompt = (
