@@ -1,7 +1,5 @@
 import random
 import uuid
-from traceback import print_tb
-
 import httpx
 import os
 from dataclasses import dataclass
@@ -14,9 +12,42 @@ import re
 from time import sleep
 
 
-# TO-DO: Zabezpieczenie gdy jest 403 przy próbie użycia modelu
 # TODO: Or not TO-DO: 429: Too many requests
-# TODO: Handle 400: {"error":{"code":"unavailable_model","message":"Unavailable model: gpt-5"
+
+
+async def model_supports_chat(model: str, token: str) -> bool:
+    url = "https://models.github.ai/inference/chat/completions"
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {token}",
+        "X-GitHub-Api-Version": "2026-03-10",
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "model": model,
+        "messages": [{"role": "user", "content": "ping"}],
+        "max_tokens": 1
+    }
+
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        resp = await client.post(url, headers=headers, json=payload)
+
+        if resp.status_code == 200:
+            return True
+
+        if resp.status_code == 400:
+            # sprawdzamy kod błędu
+            try:
+                data = resp.json()
+                if data.get("error", {}).get("code") == "OperationNotSupported":
+                    return False
+            except httpx.ReadTimeout:
+                pass
+            except Exception:
+                pass
+
+        return False
 
 
 def get_github_models():
@@ -24,8 +55,8 @@ def get_github_models():
     headers = {
         "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
-        "X-GitHub-Api-Version": "2022-11-28"
-    }
+        "X-GitHub-Api-Version": "2026-03-10",
+        }
 
     try:
         model_ids = []
@@ -33,6 +64,9 @@ def get_github_models():
         response.raise_for_status()  # Check for HTTP errors
 
         models = response.json()
+
+        for m in models:
+            print(m, ",", sep="")
 
         print(f"{'ID':<44} | {'Publisher':<15} | {'Modalities'}")
         print("-" * 65)
@@ -57,13 +91,6 @@ class TreatmentProposal:
     source_specialists: List[str]
     notes: Optional[str] = None
 
-# diagnoses_confirmed: List[str]
-# diagnoses_suspected: List[str]          # optional but very useful
-# treatment_plan: List[str]
-# next_steps: List[str]
-# risks: List[str]                        # extracted clinical risks
-# notes: Optional[str] = None
-# source_specialists: List[str]           # who contributed
 
 @dataclass
 class ACLMessage:
@@ -100,7 +127,18 @@ class GitHubModel:
         try:
             async with httpx.AsyncClient(timeout=60.0) as client:
                 resp = await client.post(self.url, headers=self.headers, json=payload)
+                # for k, v in resp.headers.items():
+                #     print(k, v)
                 resp.raise_for_status()
+
+                # odczyt nagłówków rate limit
+                remaining = resp.headers.get("x-ratelimit-remaining-requests")
+                remtok = resp.headers.get("x-ratelimit-remaining-tokens")
+                # retry_after = resp.headers.get("Retry-After")  # może być None
+                print()
+                print("RateLimit remaining:", remaining)
+                print("RateLimit rem. tokens:", remtok)
+                print()
                 data = resp.json()
 
                 if "choices" in data and len(data["choices"]) > 0:
@@ -313,20 +351,32 @@ def merge_proposals(reports: list[ACLMessage]) -> str:
     return "\n\n".join(parts)
 
 
+
+
 async def main():
     API_KEY = os.environ['GITHUB_TOKEN']
     K = 3
 
     avail_models = get_github_models()
-    model_list = random.sample(avail_models, K)
+    non_completion = set()
+    model_list = []
+
+    while len(model_list) < K:
+        candidates = [x for x in avail_models if x not in non_completion]
+        model_ = random.choice(candidates)
+
+        if not await model_supports_chat(model_, API_KEY):
+            non_completion.add(model_)
+        else:
+            model_list.append(model_)
+        sleep(2)
+
     print(f"Selected models: {model_list}")
+    print("openai/gpt-4o-mini::", await model_supports_chat("openai/gpt-4o-mini", API_KEY))
 
     cardio_model = GitHubModel(model_list[0], API_KEY)
-    sleep(1)
     nephro_model = GitHubModel(model_list[1], API_KEY)
-    sleep(1)
     hema_model = GitHubModel(model_list[2], API_KEY)
-    sleep(1)
 
     cardio = Agent("Cardiologist", "Cardiovascular system analysis", "Expert in heart attacks and thrombosis",
                    cardio_model)
@@ -370,7 +420,7 @@ async def main():
     user_content = PromptsEN.SUMMARIZER_USER.format(INPUT_DATA=specialist_replies)
     print("\n####" * 4, "\nUser propmt content:", specialist_replies)
     #
-    s_name = "openai/gpt‑4o"
+    s_name = "openai/gpt‑4o-mini"
     summarizer = GitHubModel(s_name, API_KEY)
     summarizer_prompts = [
         {"role": "system", "content": PromptsEN.SUMMARIZER_SYSTEM},
