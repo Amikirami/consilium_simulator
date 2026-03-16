@@ -1,3 +1,4 @@
+import random
 import uuid
 import httpx
 import os
@@ -5,16 +6,46 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional
 import asyncio
 import json
+import requests
 from prompts.prompts_en import PromptsEN
 import re
 
 
-model_list = ["openai/gpt-4.1-mini",
-              #"microsoft/mai-ds-r1",  # Server error '503 Service Unavailable'
-              "xai/grok-3-mini",
-              "meta/meta-llama-3.1-405b-instruct",
-              "mistral-ai/mistral-medium-2505",
-              ]
+# model_list = ["openai/gpt-4.1-mini",
+#               #"microsoft/mai-ds-r1",  # Server error '503 Service Unavailable'
+#               "xai/grok-3-mini",
+#               "meta/meta-llama-3.1-405b-instruct",
+#               "mistral-ai/mistral-medium-2505",
+#               ]
+
+
+def get_github_models():
+    url = "https://models.github.ai/catalog/models"
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
+        "X-GitHub-Api-Version": "2022-11-28"
+    }
+
+    try:
+        model_ids = []
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  # Check for HTTP errors
+
+        models = response.json()
+
+        print(f"{'ID':<44} | {'Publisher':<15} | {'Modalities'}")
+        print("-" * 65)
+
+        for model in models:
+            m_id = model.get('id', 'N/A')
+            publisher = model.get('publisher', 'N/A')
+            modalities = ", ".join(model.get('supported_input_modalities', []))
+            print(f"{m_id:<44} | {publisher:<15} | {modalities}")
+            model_ids.append(m_id)
+        return model_ids
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching models: {e}")
 
 
 @dataclass
@@ -197,6 +228,7 @@ class ConversationManager:
             data.append({
                 "id": i,
                 "sender": msg.sender,
+                # "send_model": "",
                 "receiver": msg.receiver,
                 "performative": msg.performative,
                 "content": msg.content,
@@ -213,6 +245,11 @@ class ConversationManager:
 
 async def main():
     API_KEY = os.environ['GITHUB_TOKEN']
+    K = 3
+
+    avail_models = get_github_models()
+    model_list = random.sample(avail_models, K)
+    print(f"Selected models: {model_list}")
 
     cardio_model = GitHubModel(model_list[0], API_KEY)
     nephro_model = GitHubModel(model_list[1], API_KEY)
@@ -228,14 +265,7 @@ async def main():
     manager.register_agent(nephro)
     manager.register_agent(hema)
 
-    topic = "Patient with acute aortic thrombosis and kidney infarction"
-    # facts = [
-    #     "Patient 58 years old, type 2 diabetes, smoker",
-    #     "Acute abdominal aortic thrombosis confirmed by CT",
-    #     "Elevated CPK-MB 250 U/L, LDH 800 U/L",
-    #     "Segmental infarction of right kidney (CT)",
-    #     "D-dimers 4500 ng/ml"
-    # ]
+    topic = "A clinical assessment is required for a patient presenting with the following symptoms. "
 
     # facts = [PromptsEN.DIAGNOSIS, PromptsEN.LAB_RESULTS]
     facts = re.split(r"\n+\s*", PromptsEN.DIAGNOSIS)
@@ -263,4 +293,5 @@ async def main():
 
 
 if __name__ == "__main__":
+    # get_github_models()
     asyncio.run(main())
