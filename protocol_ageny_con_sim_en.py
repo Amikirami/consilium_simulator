@@ -1,5 +1,7 @@
 import random
 import uuid
+from traceback import print_tb
+
 import httpx
 import os
 from dataclasses import dataclass
@@ -9,14 +11,12 @@ import json
 import requests
 from prompts.prompts_en import PromptsEN
 import re
+from time import sleep
 
 
-# model_list = ["openai/gpt-4.1-mini",
-#               #"microsoft/mai-ds-r1",  # Server error '503 Service Unavailable'
-#               "xai/grok-3-mini",
-#               "meta/meta-llama-3.1-405b-instruct",
-#               "mistral-ai/mistral-medium-2505",
-#               ]
+# TO-DO: Zabezpieczenie gdy jest 403 przy próbie użycia modelu
+# TODO: Or not TO-DO: 429: Too many requests
+# TODO: Handle 400: {"error":{"code":"unavailable_model","message":"Unavailable model: gpt-5"
 
 
 def get_github_models():
@@ -47,6 +47,23 @@ def get_github_models():
     except requests.exceptions.RequestException as e:
         print(f"Error fetching models: {e}")
 
+
+@dataclass
+class TreatmentProposal:
+    diagnoses_confirmed: List[str]
+    treatment_plan: List[str]
+    risks: List[str]
+    next_steps: List[str]
+    source_specialists: List[str]
+    notes: Optional[str] = None
+
+# diagnoses_confirmed: List[str]
+# diagnoses_suspected: List[str]          # optional but very useful
+# treatment_plan: List[str]
+# next_steps: List[str]
+# risks: List[str]                        # extracted clinical risks
+# notes: Optional[str] = None
+# source_specialists: List[str]           # who contributed
 
 @dataclass
 class ACLMessage:
@@ -96,6 +113,35 @@ class GitHubModel:
         except Exception as e:
             return f"Error: {str(e)}"
 
+    async def generate_role(self, messages) -> str:
+        """
+        messages: list of dicts, each dict = {"role": "...", "content": "..."}
+        """
+
+        payload = {
+            "model": self.model_name,
+            "messages": messages,
+            "max_tokens": 800,
+            "temperature": 0.2,
+            "stream": False
+        }
+
+        try:
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                resp = await client.post(self.url, headers=self.headers, json=payload)
+                resp.raise_for_status()
+                data = resp.json()
+
+                if "choices" in data and len(data["choices"]) > 0:
+                    return data["choices"][0]["message"]["content"].strip()
+                return "No model response"
+
+        except httpx.HTTPStatusError as e:
+            print(f"API error {e.response.status_code}: {e.response.text[:100]}")
+            return f"API error {e.response.status_code}: {e.response.text[:100]}"
+        except Exception as e:
+            return f"Error: {str(e)}"
+
 
 class Agent:
     def __init__(self, name: str, role: str, specialization: str, model: GitHubModel):
@@ -104,6 +150,9 @@ class Agent:
         self.specialization = specialization
         self.model = model
         self.memory: List[str] = []
+
+    def get_my_model(self) -> str:
+        return self.model.model_name
 
     def add_fact(self, fact: str):
         self.memory.append(fact[:200])
@@ -123,6 +172,7 @@ class Agent:
 
     async def handle_message(self, msg: ACLMessage) -> Optional[ACLMessage]:
         prompt = self._build_context(msg.content)
+        await asyncio.sleep(10)
         reply_text = await self.model.generate(prompt)
 
         performative_map = {
@@ -175,10 +225,11 @@ class ConversationManager:
                     sender="System",
                     receiver=name,
                     content=topic_msg,
-                    conversation_id=conv_id
+                    conversation_id=conv_id,
+                    metadata={"receiver_model": self.agents[name].get_my_model()}
                 )
                 await self._deliver(msg)
-                await asyncio.sleep(0.5)
+                await asyncio.sleep(1)
 
         return conv_id
 
@@ -228,11 +279,11 @@ class ConversationManager:
             data.append({
                 "id": i,
                 "sender": msg.sender,
-                # "send_model": "",
                 "receiver": msg.receiver,
                 "performative": msg.performative,
                 "content": msg.content,
-                "conversation_id": msg.conversation_id
+                "conversation_id": msg.conversation_id,
+                "metadata": msg.metadata
             })
 
         with open(filename, "w", encoding="utf-8") as f:
@@ -241,6 +292,25 @@ class ConversationManager:
 
     def get_full_conversation(self, conv_id: str) -> List[ACLMessage]:
         return self.conversations.get(conv_id, [])
+
+
+def asses_result(conv_summary:TreatmentProposal, reference:TreatmentProposal):
+    """Compares the discussion result to the reference data"""
+    pass
+
+
+def merge_proposals(reports: list[ACLMessage]) -> str:
+    """
+    Takes a list of ACLMessage dataclass objects and returns a single
+    merged text containing only those with performative == 'propose'.
+    """
+    parts = []
+
+    for report in reports:
+        if report.performative == "propose":
+            parts.append(f"{report.sender}:\n{report.content}")
+
+    return "\n\n".join(parts)
 
 
 async def main():
@@ -252,8 +322,11 @@ async def main():
     print(f"Selected models: {model_list}")
 
     cardio_model = GitHubModel(model_list[0], API_KEY)
+    sleep(1)
     nephro_model = GitHubModel(model_list[1], API_KEY)
+    sleep(1)
     hema_model = GitHubModel(model_list[2], API_KEY)
+    sleep(1)
 
     cardio = Agent("Cardiologist", "Cardiovascular system analysis", "Expert in heart attacks and thrombosis",
                    cardio_model)
@@ -267,7 +340,7 @@ async def main():
 
     topic = "A clinical assessment is required for a patient presenting with the following symptoms. "
 
-    # facts = [PromptsEN.DIAGNOSIS, PromptsEN.LAB_RESULTS]
+    # Rozdzielenie "facts" na jednoliniową listę - do przechowania w pamieci agenta
     facts = re.split(r"\n+\s*", PromptsEN.DIAGNOSIS)
     facts.extend(re.split(r"\n+\s*", PromptsEN.LAB_RESULTS))
 
@@ -290,6 +363,27 @@ async def main():
     # Lub pobierz liste obiektow
     full_history = manager.get_full_conversation(conv_id)
     print(f"\nLiczba wiadomosci: {len(full_history)}")
+
+    # Podsumowanie dyskusji
+    specialist_replies = merge_proposals(full_history)
+    print("\n####"*4, "\nProposals:", specialist_replies)
+    user_content = PromptsEN.SUMMARIZER_USER.format(INPUT_DATA=specialist_replies)
+    print("\n####" * 4, "\nUser propmt content:", specialist_replies)
+    #
+    s_name = "openai/gpt‑4o"
+    summarizer = GitHubModel(s_name, API_KEY)
+    summarizer_prompts = [
+        {"role": "system", "content": PromptsEN.SUMMARIZER_SYSTEM},
+        {"role": "user", "content": user_content},
+    ]
+
+
+    conv_summary = await summarizer.generate_role(summarizer_prompts)
+    print("\n####"*4, "\nConv summary:", conv_summary)
+
+    #
+    # reference_summary = ""
+    # asses_result(conv_summary, reference_summary)
 
 
 if __name__ == "__main__":

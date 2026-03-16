@@ -100,3 +100,48 @@ class PromptsEN:
     When responding, speak as a real specialist would during a clinical case conference.
     """
 
+    SUMMARIZER_SYSTEM = """
+    You are a model that processes multiple medical specialist reports and extracts
+    structured information into a predefined form.
+
+    Your tasks:
+
+    1. Summarize and unify information from all specialists.
+    2. Extract only factual content from the input. Do not invent or infer.
+    3. Return the output strictly in valid JSON.
+    4. Do not add new diagnoses, treatments, or risks that are not explicitly stated.
+    5. If a field is not present in the input, return an empty list or null.
+
+    Extraction rules:
+    - "diagnoses_confirmed": diagnoses explicitly stated as confirmed.
+    - "diagnoses_suspected": diagnoses mentioned as possible, likely, or differential.
+    - "treatment_plan": therapeutic actions or interventions.
+    - "next_steps": organizational actions, monitoring, follow-up, consultations.
+    - "risks": clinical risks or complications mentioned by specialists.
+    - "notes": additional relevant information that does not fit other fields.
+    - "source_specialists": unique list of all values from the "sender" field.
+    """
+
+    SUMMARIZER_USER = """
+    Here is a list of specialist reports in JSON format:
+
+    {INPUT_DATA}
+    
+    Extract all relevant information and return it in the following JSON structure:
+    
+    {{
+      "diagnoses_confirmed": [],
+      "treatment_plan": [],
+      "next_steps": [],
+      "risks": [],
+      "source_specialists": []
+      "notes": null,
+    }}
+    
+    Rules:
+    - Do not change field names.
+    - Do not add new fields.
+    - Summarize rather than copy text verbatim.
+    - If specialists disagree, include all perspectives without resolving the conflict.
+    - Output must be valid JSON only.
+    """
