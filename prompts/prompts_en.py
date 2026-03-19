@@ -35,6 +35,18 @@ class PromptsEN:
 
     LAB_RESULTS = ""
 
+    REFERENCE_TREATMENT = """
+    A vascular surgeon and endovascular interventionist then assessed the patient to determine the need for emergency vascular intervention. 
+    The physicians met with the family to discuss the patient’s critical condition and appropriate treatment. 
+    The patient subsequently underwent an emergency bilateral lower limb angioplasty that consisted of athrombectomy, balloon angioplasty, and catheter-directedthrombolysis (CDT) of the aortic thrombus, with a bolus dose of 5 mg. 
+    This was followed by an infusion with tissue plasmin  activator  (0.5  mg/hour).  Systemic  intravenous in fusion of unfractionated heparin was initiated at 500 IU/hour, alongside oral antiplatelet therapy of aspirin and clopidogrel. 
+    The patient was then transferred to the intensivecare unit (ICU) for monitoring under a multidisciplinary team  comprising  a  vascular  surgeon,  an  endovascular interventionist, a nephrologist, and a hematologist. 
+    On the third day, the patient was moved to a catheterization lab for stage II pharmaco-mechanical thrombolysis. 
+    Anabdominal angiogram showed patency of the distal aorta and iliac vessels, confirming their successful recanalization after CDT.
+    During  the  ICU  stay,  the  patient’s  kidney  function deteriorated secondary to the infarction and was followed closely by the nephrology team. 
+    Creatinine increased to 409 umol/L but improved with intravenous hydration. One week later, the patient’s general condition was stable enough to be downgraded to the regular surgical floor. 
+    The patients’ oral anticoagulant therapy began with 5 mg warfarin daily. The patient subsequently showed dramatic improvement, and he was discharged in stable condition.
+    """
 
     MODERATOR = """
     You are the moderator of a multidisciplinary tumor board meeting. 

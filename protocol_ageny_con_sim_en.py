@@ -2,7 +2,7 @@ import random
 import uuid
 import httpx
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import Dict, List, Optional
 import asyncio
 import json
@@ -10,9 +10,20 @@ import requests
 from prompts.prompts_en import PromptsEN
 import re
 from time import sleep
+import numpy as np
+import logging
 
 
 # TODO: Or not TO-DO: 429: Too many requests
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    filemode='a',
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    filename='portocol_agntconsim.log'
+)
+logger = logging.getLogger(__name__)
 
 
 async def model_supports_chat(model: str, token: str) -> bool:
@@ -30,7 +41,7 @@ async def model_supports_chat(model: str, token: str) -> bool:
         "max_tokens": 1
     }
 
-    async with httpx.AsyncClient(timeout=10.0) as client:
+    async with httpx.AsyncClient(timeout=60.0) as client:
         resp = await client.post(url, headers=headers, json=payload)
 
         if resp.status_code == 200:
@@ -65,16 +76,18 @@ def get_github_models():
 
         models = response.json()
 
-        for m in models:
-            print(m, ",", sep="")
+        # for m in models:
+        #     print(m, ",", sep="")
 
-        print(f"{'ID':<44} | {'Publisher':<15} | {'Modalities'}")
+        # print(f"{'ID':<44} | {'Publisher':<15} | {'Modalities'}")
+        print(f"{'ID':<44} | {'Publisher':<12} | {'Tags'}")
         print("-" * 65)
 
         for model in models:
             m_id = model.get('id', 'N/A')
             publisher = model.get('publisher', 'N/A')
-            modalities = ", ".join(model.get('supported_input_modalities', []))
+            # modalities = ", ".join(model.get('supported_input_modalities', []))
+            modalities = ", ".join(model.get('tags', []))
             print(f"{m_id:<44} | {publisher:<15} | {modalities}")
             model_ids.append(m_id)
         return model_ids
@@ -102,6 +115,11 @@ class ACLMessage:
     metadata: Optional[Dict] = None
 
 
+def remove_think_blocks(text: str) -> str:
+    # usuwa wszystko pomiędzy <think> ... </think>, łącznie ze znacznikami
+    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+
+
 class GitHubModel:
     def __init__(self, model_name: str, api_key: str):
         self.model_name = model_name
@@ -118,37 +136,60 @@ class GitHubModel:
     async def generate(self, prompt: str) -> str:
         payload = {
             "model": self.model_name,
-            "messages": [{"role": "user", "content": prompt}],
+            "messages": [
+                {"role": "system", "content": "You must not use chain-of-thought or reasoning. Do not output <think> tags. Respond with the final answer only. nothink. /nothink /no_think"},
+                {"role": "user", "content": prompt}]
+            ,
             "max_tokens": 800,
             "temperature": 0.2,
-            "stream": False
+            "stream": False,
+            # "think": False
         }
+        logger.info(f"Calling LLM: model={self.model_name}, user_prompt_len={len(prompt)}")
+        sleep(60)
 
         try:
             async with httpx.AsyncClient(timeout=60.0) as client:
                 resp = await client.post(self.url, headers=self.headers, json=payload)
+
                 # for k, v in resp.headers.items():
                 #     print(k, v)
-                resp.raise_for_status()
 
                 # odczyt nagłówków rate limit
-                remaining = resp.headers.get("x-ratelimit-remaining-requests")
-                remtok = resp.headers.get("x-ratelimit-remaining-tokens")
-                # retry_after = resp.headers.get("Retry-After")  # może być None
+                # remaining = resp.headers.get("x-ratelimit-remaining-requests")
+                # remtok = resp.headers.get("x-ratelimit-remaining-tokens")
+                # errors = resp.headers.get("x-ratelimit-errors")
+                # print("RateLimit remaining:", remaining)
+                # print("RateLimit rem. tokens:", remtok)
+                #
+                # x-ms-error-code RateLimitReached
+                # x-ratelimit-timeremaining 28
+                # x-ratelimit-type UserByModelByMinute
+                #
+                fragments = ("ratelimit", "error")
+                filtered = {
+                    k: v for k, v in resp.headers.items()
+                    if any(f.lower() in k.lower() for f in fragments)
+                }
                 print()
-                print("RateLimit remaining:", remaining)
-                print("RateLimit rem. tokens:", remtok)
+                for k, v in filtered.items():
+                    print(k,v)
+                    logging.debug(f"{k}: {v}")
                 print()
+
+                resp.raise_for_status()
                 data = resp.json()
 
                 if "choices" in data and len(data["choices"]) > 0:
-                    return data["choices"][0]["message"]["content"].strip()
+                    return remove_think_blocks(data["choices"][0]["message"]["content"].strip())
                 return "No model response"
 
         except httpx.HTTPStatusError as e:
             print(f"API error {e.response.status_code}: {e.response.text[:100]}")
+            logging.error(f"API error {e.response.status_code}: {e.response.text}")
             return f"API error {e.response.status_code}: {e.response.text[:100]}"
         except Exception as e:
+            logging.error(f"API error {str(e)}")
             return f"Error: {str(e)}"
 
     async def generate_role(self, messages) -> str:
@@ -163,7 +204,7 @@ class GitHubModel:
             "temperature": 0.2,
             "stream": False
         }
-
+        logger.info(f"Calling LLM: generate_role model={self.model_name}")
         try:
             async with httpx.AsyncClient(timeout=60.0) as client:
                 resp = await client.post(self.url, headers=self.headers, json=payload)
@@ -171,13 +212,15 @@ class GitHubModel:
                 data = resp.json()
 
                 if "choices" in data and len(data["choices"]) > 0:
-                    return data["choices"][0]["message"]["content"].strip()
+                    return remove_think_blocks(data["choices"][0]["message"]["content"].strip())
                 return "No model response"
 
         except httpx.HTTPStatusError as e:
             print(f"API error {e.response.status_code}: {e.response.text[:100]}")
+            logging.error(f"API error {e.response.status_code}: {e.response.text}")
             return f"API error {e.response.status_code}: {e.response.text[:100]}"
         except Exception as e:
+            logging.error(f"API error {str(e)}")
             return f"Error: {str(e)}"
 
 
@@ -210,8 +253,9 @@ class Agent:
 
     async def handle_message(self, msg: ACLMessage) -> Optional[ACLMessage]:
         prompt = self._build_context(msg.content)
-        await asyncio.sleep(10)
+        await asyncio.sleep(60)
         reply_text = await self.model.generate(prompt)
+        sleep(60)
 
         performative_map = {
             "inform": "inform",
@@ -246,6 +290,7 @@ class ConversationManager:
 
     async def start_conversation(self, topic: str, facts: List[str], participants: List[str]) -> str:
         conv_id = str(uuid.uuid4())
+        logging.info(f"Starting conversation id={conv_id}")
         self.conversations[conv_id] = []
 
         print(f"Starting conversation: {topic}")
@@ -267,7 +312,8 @@ class ConversationManager:
                     metadata={"receiver_model": self.agents[name].get_my_model()}
                 )
                 await self._deliver(msg)
-                await asyncio.sleep(1)
+                await asyncio.sleep(60)
+                sleep(60)
 
         return conv_id
 
@@ -279,7 +325,8 @@ class ConversationManager:
             reply = await agent.handle_message(msg)
             if reply:
                 self.conversations[msg.conversation_id].append(reply)
-                print(f"[{msg.sender}->{reply.receiver}] {reply.performative}: {reply.content[:80]}...")
+                # print(f"[{msg.sender}->{reply.receiver}] {reply.performative}: {reply.content[:80]}...")
+                print(f"[{msg.sender}->{reply.receiver}] {reply.performative}: {reply.content}")
 
     async def broadcast_request(self, conv_id: str, sender: str, content: str, recipients: List[str]):
         tasks = []
@@ -332,9 +379,69 @@ class ConversationManager:
         return self.conversations.get(conv_id, [])
 
 
+# ----------------------------------------------
+# Compare
+
+def cosine_similarity(a, b):
+    a = np.array(a)
+    b = np.array(b)
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+
+async def embed_fn(text: str, token: str, model: str = "openai/text-embedding-3-large"):
+    url = "https://models.github.ai/inference/embeddings"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "X-Model": model,
+    }
+    payload = {
+        "input": text,
+        "model": model
+    }
+    sleep(60)
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        resp = await client.post(url, headers=headers, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+
+    # GitHub Models zwraca embedding w data["data"][0]["embedding"]
+    print("Embeddings::", str(data)[:100], "...", str(data)[-100:])
+    return data["data"][0]["embedding"]
+
+
+async def list_embedding_similarity(list1, list2, embed_fn):
+    if not list1 and not list2:
+        return 1.0
+    if not list1 or not list2:
+        return 0.0
+
+    # embeddingi dla obu list
+    emb1 = [await embed_fn(x, os.environ['GITHUB_TOKEN']) for x in list1]
+    sleep(30)
+    emb2 = [await embed_fn(x, os.environ['GITHUB_TOKEN']) for x in list2]
+    sleep(30)
+
+    scores = []
+    for e1 in emb1:
+        best = max(cosine_similarity(e1, e2) for e2 in emb2)
+        scores.append(best)
+
+    return float(sum(scores) / len(scores))
+
+
 def asses_result(conv_summary:TreatmentProposal, reference:TreatmentProposal):
     """Compares the discussion result to the reference data"""
     pass
+
+
+async def compare_conv_summaries_embeddings(a: TreatmentProposal, b: TreatmentProposal, embed_fn):
+    return {
+        "diagnoses_confirmed": await list_embedding_similarity(a.diagnoses_confirmed, b.diagnoses_confirmed, embed_fn),
+        # "diagnoses_suspected": list_embedding_similarity(a.diagnoses_suspected, b.diagnoses_suspected, embed_fn),
+        "treatment_plan": await list_embedding_similarity(a.treatment_plan, b.treatment_plan, embed_fn),
+        "risks": await list_embedding_similarity(a.risks, b.risks, embed_fn),
+        "next_steps": await list_embedding_similarity(a.next_steps, b.next_steps, embed_fn),
+    }
 
 
 def merge_proposals(reports: list[ACLMessage]) -> str:
@@ -351,11 +458,40 @@ def merge_proposals(reports: list[ACLMessage]) -> str:
     return "\n\n".join(parts)
 
 
+# def parse_conv_summary(text: str) -> TreatmentProposal:
+#     # znajdź blok { ... }
+#     match = re.search(r"\{.*\}", text, flags=re.DOTALL)
+#     if not match:
+#         raise ValueError("Nie znaleziono JSON w tekście")
+#
+#     json_text = match.group(0)
+#     data = json.loads(json_text)
+#     return TreatmentProposal(**data)
+
+
+from dataclasses import fields
+
+def parse_conv_summary(text: str) -> TreatmentProposal:
+    # wyciągamy JSON z tekstu
+    import json, re
+    match = re.search(r"\{.*\}", text, flags=re.DOTALL)
+    if not match:
+        raise ValueError("Nie znaleziono JSON w tekście")
+
+    data = json.loads(match.group(0))
+
+    # lista dozwolonych pól
+    allowed = {f.name for f in fields(TreatmentProposal)}
+
+    # filtrujemy
+    filtered = {k: v for k, v in data.items() if k in allowed}
+
+    return TreatmentProposal(**filtered)
 
 
 async def main():
     API_KEY = os.environ['GITHUB_TOKEN']
-    K = 3
+    K = 4
 
     avail_models = get_github_models()
     non_completion = set()
@@ -374,19 +510,41 @@ async def main():
     print(f"Selected models: {model_list}")
     print("openai/gpt-4o-mini::", await model_supports_chat("openai/gpt-4o-mini", API_KEY))
 
-    cardio_model = GitHubModel(model_list[0], API_KEY)
+    # cardio_model = GitHubModel(model_list[0], API_KEY)
     nephro_model = GitHubModel(model_list[1], API_KEY)
     hema_model = GitHubModel(model_list[2], API_KEY)
+    vascular_model = GitHubModel(model_list[0], API_KEY)
+    endo_model = GitHubModel(model_list[1], API_KEY)
 
-    cardio = Agent("Cardiologist", "Cardiovascular system analysis", "Expert in heart attacks and thrombosis",
-                   cardio_model)
+    # cardio = Agent("Cardiologist", "Cardiovascular system analysis", "Expert in heart attacks and thrombosis",
+    #                cardio_model)
     nephro = Agent("Nephrologist", "Kidney function assessment", "Kidney failure specialist", nephro_model)
     hema = Agent("Hematologist", "Blood and clotting analysis", "Thrombosis and hematology", hema_model)
 
+    # vascular surgeon
+    # endovascular interventionist
+    vascular = Agent(
+        "Vascular Surgeon",
+        "Peripheral vascular and arterial intervention",
+        "Expert in surgical management of arterial occlusions and limb ischemia",
+        vascular_model
+    )
+
+    endo = Agent(
+        "Endovascular Interventionist",
+        "Minimally invasive vascular procedures",
+        "Specialist in catheter‑based thrombolysis, angioplasty, and stent placement",
+        endo_model
+    )
+
+
     manager = ConversationManager()
-    manager.register_agent(cardio)
+    # manager.register_agent(cardio)
     manager.register_agent(nephro)
     manager.register_agent(hema)
+
+    manager.register_agent(vascular)
+    manager.register_agent(endo)
 
     topic = "A clinical assessment is required for a patient presenting with the following symptoms. "
 
@@ -394,14 +552,20 @@ async def main():
     facts = re.split(r"\n+\s*", PromptsEN.DIAGNOSIS)
     facts.extend(re.split(r"\n+\s*", PromptsEN.LAB_RESULTS))
 
-    conv_id = await manager.start_conversation(topic, facts, ["Cardiologist", "Nephrologist", "Hematologist"])
+    # conv_id = await manager.start_conversation(topic, facts, ["Cardiologist", "Nephrologist", "Hematologist"])
+    conv_id = await manager.start_conversation(topic, facts,
+                                               # ["Cardiologist",
+                                               [ "Nephrologist", "Hematologist",
+                                                "Vascular Surgeon", "Endovascular Interventionist"])
     await asyncio.sleep(2)
 
     await manager.broadcast_request(
         conv_id,
         "Attending Physician",
         "Please provide urgent risk assessment and treatment plan. Time critical!",
-        ["Cardiologist", "Nephrologist", "Hematologist"]
+        # ["Cardiologist",
+         ["Nephrologist", "Hematologist",
+                   "Vascular Surgeon", "Endovascular Interventionist"]
     )
 
     await asyncio.sleep(3)
@@ -418,9 +582,9 @@ async def main():
     specialist_replies = merge_proposals(full_history)
     print("\n####"*4, "\nProposals:", specialist_replies)
     user_content = PromptsEN.SUMMARIZER_USER.format(INPUT_DATA=specialist_replies)
-    print("\n####" * 4, "\nUser propmt content:", specialist_replies)
+    print("\n####" * 4, "\nUser prompt content:", specialist_replies)
     #
-    s_name = "openai/gpt‑4o-mini"
+    s_name = "openai/gpt-4o-mini"
     summarizer = GitHubModel(s_name, API_KEY)
     summarizer_prompts = [
         {"role": "system", "content": PromptsEN.SUMMARIZER_SYSTEM},
@@ -431,9 +595,65 @@ async def main():
     conv_summary = await summarizer.generate_role(summarizer_prompts)
     print("\n####"*4, "\nConv summary:", conv_summary)
 
+    # Append summary to file
+    add_data = {
+                "id": -1,
+                "sender": "Summary",
+                "receiver": "",
+                "performative": "",
+                "content": conv_summary,
+                "conversation_id": "",
+            }
+    filename = f"conversation_{conv_id[:8]}.json"
+    # Hacky add summary to json
+    with open(filename, "ta+", encoding="utf-8") as f:
+        txt = f.read()
+        pos = txt.rfind("]")
+        if pos != -1:
+            txt = txt[:pos]
+        f.seek(0)
+        f.write(txt)
+        f.write(",\n")
+        json.dump(add_data, f, indent=2, ensure_ascii=False)
+        f.write("]\n")
+    print(f"Full conversation saved to {filename}")
+    # add_data = ACLMessage(
+    #                 performative="",
+    #                 sender="Summary",
+    #                 receiver="",
+    #                 content=conv_summary,
+    #                 conversation_id="",
+    # )
+    # full_history.append(add_data)
+
+
     #
-    # reference_summary = ""
-    # asses_result(conv_summary, reference_summary)
+    reference = PromptsEN.REFERENCE_TREATMENT
+    summarizer_prompts = [
+        {"role": "system", "content": PromptsEN.SUMMARIZER_SYSTEM},
+        {"role": "user", "content": reference},
+    ]
+    print("Creating reference summary...")
+    sleep(60)
+    reference_summary = await summarizer.generate_role(summarizer_prompts)
+    cs = parse_conv_summary(conv_summary)
+    rs = parse_conv_summary(reference_summary)
+
+    # asses_result(cs, rs)
+    sleep(60)
+    print("Comparing...")
+    result = await compare_conv_summaries_embeddings(rs, cs, embed_fn)
+    # Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [0.007914375, 0.004464019, -0.0035263803, -0.039486103, -0.0015487613, 0.0503401, -0.019259611, 0.045879982, 0.020054948, -0.0049006743 ...
+    # overall = await overall_similarity_embeddings(summary1, summary2, token)
+
+    print("Converstion - structured::")
+    print(json.dumps(asdict(cs), indent=2, ensure_ascii=False))
+    print("Reference   - structured::")
+    print(json.dumps(asdict(rs), indent=2, ensure_ascii=False))
+
+    print("===================")
+    print("=======RESULT======")
+    print(result)
 
 
 if __name__ == "__main__":
