@@ -1,0 +1,162 @@
+[
+  {
+    "id": 0,
+    "sender": "System",
+    "receiver": "Nephrologist",
+    "performative": "inform",
+    "content": "TOPIC: A clinical assessment is required for a patient presenting with the following symptoms. \n\nFACTS:\nA 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone. \nThe patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs. \nThe patient reported no history of trauma, fever, dysuria, or hematuria. \nThe patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C. \nBoth lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent. \nAn echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes. \nAt this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed. \nLaboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L). \nThe  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L). \nCreatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated. \nCPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L). \nCTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries. \nFurther thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen. \nNotably, the scan did not reveal any evidence of dissection in any aortic division. \n",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": {
+      "receiver_model": "openai/gpt-4o-mini"
+    }
+  },
+  {
+    "id": 1,
+    "sender": "Nephrologist",
+    "receiver": "System",
+    "performative": "inform",
+    "content": "The patient presents with severe back pain, nausea, vomiting, and significant weakness in both legs, alongside dusky lower limb coloration and absent peripheral pulses, indicating acute limb ischemia. The CTA findings of total occlusion of the distal abdominal aorta and thrombosis in both renal and splenic arteries suggest critical vascular compromise. The elevated CPK and LDH levels indicate muscle damage and possible ischemia. Immediate intervention is required to restore blood flow and address the renal infarctions.",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 2,
+    "sender": "System",
+    "receiver": "Hematologist",
+    "performative": "inform",
+    "content": "TOPIC: A clinical assessment is required for a patient presenting with the following symptoms. \n\nFACTS:\nA 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone. \nThe patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs. \nThe patient reported no history of trauma, fever, dysuria, or hematuria. \nThe patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C. \nBoth lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent. \nAn echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes. \nAt this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed. \nLaboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L). \nThe  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L). \nCreatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated. \nCPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L). \nCTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries. \nFurther thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen. \nNotably, the scan did not reveal any evidence of dissection in any aortic division. \n",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": {
+      "receiver_model": "meta/meta-llama-3.1-405b-instruct"
+    }
+  },
+  {
+    "id": 3,
+    "sender": "Hematologist",
+    "receiver": "System",
+    "performative": "inform",
+    "content": "Based on the patient's symptoms, lab results, and imaging findings, the diagnosis is likely aortic and peripheral arterial thrombosis with subsequent infarctions in the kidneys and spleen. The elevated CPK and LDH levels indicate significant tissue damage. The patient requires immediate anticoagulation therapy and possible thrombectomy or thrombolysis to restore blood flow to the affected areas.",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 4,
+    "sender": "System",
+    "receiver": "Vascular Surgeon",
+    "performative": "inform",
+    "content": "TOPIC: A clinical assessment is required for a patient presenting with the following symptoms. \n\nFACTS:\nA 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone. \nThe patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs. \nThe patient reported no history of trauma, fever, dysuria, or hematuria. \nThe patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C. \nBoth lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent. \nAn echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes. \nAt this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed. \nLaboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L). \nThe  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L). \nCreatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated. \nCPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L). \nCTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries. \nFurther thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen. \nNotably, the scan did not reveal any evidence of dissection in any aortic division. \n",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": {
+      "receiver_model": "meta/llama-3.3-70b-instruct"
+    }
+  },
+  {
+    "id": 5,
+    "sender": "Vascular Surgeon",
+    "receiver": "System",
+    "performative": "inform",
+    "content": "The patient's symptoms and CTA results indicate acute limb ischemia due to total occlusion of the distal abdominal aorta and iliac arteries, with associated renal and splenic infarctions. Immediate surgical intervention is required to restore blood flow to the lower limbs and prevent further tissue damage.",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 6,
+    "sender": "System",
+    "receiver": "Endovascular Interventionist",
+    "performative": "inform",
+    "content": "TOPIC: A clinical assessment is required for a patient presenting with the following symptoms. \n\nFACTS:\nA 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone. \nThe patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs. \nThe patient reported no history of trauma, fever, dysuria, or hematuria. \nThe patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C. \nBoth lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent. \nAn echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes. \nAt this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed. \nLaboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L). \nThe  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L). \nCreatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated. \nCPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L). \nCTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries. \nFurther thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen. \nNotably, the scan did not reveal any evidence of dissection in any aortic division. \n",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": {
+      "receiver_model": "openai/gpt-4o-mini"
+    }
+  },
+  {
+    "id": 7,
+    "sender": "Endovascular Interventionist",
+    "receiver": "System",
+    "performative": "inform",
+    "content": "The patient presents with acute limb ischemia likely due to total occlusion of the distal abdominal aorta and extensive thrombus in the iliac arteries. The absence of peripheral pulses and dusky coloration in the lower limbs, along with elevated CPK and LDH levels, indicates significant muscle damage and ischemia. Urgent intervention, such as catheter-based thrombolysis or angioplasty, is warranted to restore blood flow and prevent further complications, including limb loss and renal infarctions.",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 8,
+    "sender": "Attending Physician",
+    "receiver": "Nephrologist",
+    "performative": "request",
+    "content": "Please provide urgent risk assessment and treatment plan. Time critical!",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 9,
+    "sender": "Attending Physician",
+    "receiver": "Hematologist",
+    "performative": "request",
+    "content": "Please provide urgent risk assessment and treatment plan. Time critical!",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 10,
+    "sender": "Attending Physician",
+    "receiver": "Vascular Surgeon",
+    "performative": "request",
+    "content": "Please provide urgent risk assessment and treatment plan. Time critical!",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 11,
+    "sender": "Attending Physician",
+    "receiver": "Endovascular Interventionist",
+    "performative": "request",
+    "content": "Please provide urgent risk assessment and treatment plan. Time critical!",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 12,
+    "sender": "Vascular Surgeon",
+    "receiver": "Attending Physician",
+    "performative": "propose",
+    "content": "High-risk patient with acute limb ischemia. Immediate treatment plan: emergent thrombectomy or angioplasty of the distal abdominal aorta and iliac arteries to restore blood flow. Monitor renal and splenic function due to associated infarctions.",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 13,
+    "sender": "Nephrologist",
+    "receiver": "Attending Physician",
+    "performative": "propose",
+    "content": "Urgent risk assessment indicates acute limb ischemia due to potential vascular compromise. Immediate treatment plan includes:\n\n1. **Immediate Imaging**: Obtain vascular imaging (e.g., Doppler ultrasound or CT angiography) to assess blood flow and identify occlusions.\n2. **Revascularization**: Prepare for possible surgical intervention (embolectomy or bypass) based on imaging results.\n3. **Supportive Care**: Administer IV fluids and pain management.\n4. **Monitoring**: Continuous monitoring of vital signs and limb status.\n5. **Consultation**: Urgent referral to vascular surgery for intervention.\n\nTime is critical to prevent irreversible limb damage.",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 14,
+    "sender": "Endovascular Interventionist",
+    "receiver": "Attending Physician",
+    "performative": "propose",
+    "content": "Urgent risk assessment indicates acute limb ischemia due to total occlusion of the distal abdominal aorta and extensive thrombus in the iliac arteries. Immediate treatment plan includes:\n\n1. **Catheter-based thrombolysis** to dissolve the thrombus.\n2. **Angioplasty** to restore blood flow if thrombolysis is successful.\n3. **Stent placement** if there are residual stenoses post-angioplasty.\n\nMonitor for complications and ensure timely intervention to prevent limb loss.",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": 15,
+    "sender": "Hematologist",
+    "receiver": "Attending Physician",
+    "performative": "propose",
+    "content": "Urgent Risk Assessment: \nHigh risk of further thrombotic events, organ failure, and death due to aortic and peripheral arterial thrombosis with infarctions in kidneys and spleen.\n\nTreatment Plan:\n1. Immediate anticoagulation with IV heparin to prevent further thrombosis.\n2. Thrombolysis or thrombectomy to restore blood flow to affected organs.\n3. Close monitoring of renal function, blood pressure, and cardiac status.\n4. Consideration for surgical intervention if thrombolysis/thrombectomy is unsuccessful.\n5. Activation of massive transfusion protocol, if necessary, to manage potential bleeding complications.",
+    "conversation_id": "2612ff4e-e087-47ec-9e08-48f599cdd031",
+    "metadata": null
+  },
+  {
+    "id": -1,
+    "sender": "Summary",
+    "receiver": "",
+    "performative": "",
+    "content": "{\n  \"diagnoses_confirmed\": [\"Acute limb ischemia\", \"Aortic and peripheral arterial thrombosis\", \"Kidney and spleen infarctions\"],\n  \"diagnoses_suspected\": [],\n  \"treatment_plan\": [\n    \"Thrombectomy or angioplasty of the distal abdominal aorta and iliac arteries\",\n    \"Surgical revascularization (embolectomy or bypass)\",\n    \"Catheter-based thrombolysis and angioplasty\",\n    \"Stent placement if needed\",\n    \"Immediate anticoagulation with IV heparin\",\n    \"Thrombolysis or thrombectomy\",\n    \"Surgical intervention if thrombolytic/thromboembolic treatment fails\",\n    \"IV fluids and pain management\"\n  ],\n  \"next_steps\": [\n    \"Obtain vascular imaging (Doppler ultrasound or CT angiography)\",\n    \"Monitor renal, splenic, and cardiac function\",\n    \"Continuous vital signs and limb monitoring\",\n    \"Urgent vascular surgery consultation\",\n    \"Prepare for potential bleeding complications with a massive transfusion protocol\"\n  ],\n  \"risks\": [\n    \"Irreversible limb damage\",\n    \"Further thrombotic events\",\n    \"Organ failure\",\n    \"Death\"\n  ],\n  \"notes\": []\n}",
+    "conversation_id": ""
+  }
+]

@@ -1,0 +1,34 @@
+,conversation,reference,score
+diagnoses_confirmed,"acute limb ischemia from abdominal aorta occlusion
+ renal and splenic infarctions
+ critical limb ischemia
+ massive intramural thrombus in abdominal aorta and iliac arteries","aortic thrombus
+ kidney function deterioration secondary to infarction",0.6224632777970436
+diagnoses_suspected,,,0.0
+treatment_plan,"catheter-based thrombolysis and possible angioplasty with stent placement
+ stabilization to ensure hemodynamic stability
+ initiation of anticoagulation therapy to prevent further embolic events
+ surgical thrombectomy to remove intramural thrombus
+ possible aorto-iliac bypass grafting to restore blood flow to lower limbs
+ supportive care with close monitoring of renal function
+ consideration of dialysis if renal failure progresses","emergency bilateral lower limb angioplasty including athrombectomy, balloon angioplasty, and catheter-directed thrombolysis (CDT) of the aortic thrombus with a bolus dose of 5 mg
+ infusion with tissue plasminogen activator (0.5 mg/hour)
+ systemic intravenous infusion of unfractionated heparin at 500 IU/hour
+ oral antiplatelet therapy with aspirin and clopidogrel
+ stage II pharmaco-mechanical thrombolysis
+ intravenous hydration for kidney function
+ oral anticoagulant therapy with warfarin 5 mg daily",0.5013820099153918
+risks,"significant risk of renal and splenic infarctions
+ high risk of limb loss
+ high risk of organ damage due to ischemia",deterioration of kidney function secondary to infarction,0.5235122450124855
+next_steps,"confirm occlusion and assess renal perfusion via imaging
+ urgent surgical intervention within 2-4 hours
+ close monitoring of vital organs for signs of ischemia or damage
+ nephrology consultation for potential dialysis","transfer to intensive care unit (ICU) for monitoring under a multidisciplinary team (vascular surgeon, endovascular interventionist, nephrologist, hematologist)
+ abdominal angiogram to confirm patency of distal aorta and iliac vessels
+ downgrade to regular surgical floor after stabilization
+ discharge in stable condition",0.44648686985974806
+notes,"time is critical; prompt action essential to minimize organ damage
+ no aortic dissection detected, reducing risk of catheter-based intervention","creatinine increased to 409 umol/L but improved with intravenous hydration
+ abdominal angiogram confirmed successful recanalization of distal aorta and iliac vessels after CDT
+ patient showed dramatic improvement prior to discharge",0.45024218633314583

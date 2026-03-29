@@ -131,7 +131,6 @@ class PromptsEN:
     - "next_steps": organizational actions, monitoring, follow-up, consultations.
     - "risks": clinical risks or complications mentioned by specialists.
     - "notes": additional relevant information that does not fit other fields.
-    - "source_specialists": unique list of all values from the "sender" field.
     """
 
     SUMMARIZER_USER = """
@@ -143,11 +142,11 @@ class PromptsEN:
     
     {{
       "diagnoses_confirmed": [],
+      "diagnoses_suspected": [],
       "treatment_plan": [],
       "next_steps": [],
       "risks": [],
-      "source_specialists": []
-      "notes": null,
+      "notes": [],
     }}
     
     Rules:

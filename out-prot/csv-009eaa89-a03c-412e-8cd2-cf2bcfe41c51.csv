@@ -1,0 +1,39 @@
+,conversation,reference,score
+diagnoses_confirmed,,,0.0
+diagnoses_suspected,"Acute limb ischemia
+ Aortic occlusion with intramural thrombus
+ Renal vein thrombosis
+ Pulmonary embolism
+ Thrombotic event
+ Coagulopathy",,0.0
+treatment_plan,"Catheter-based thrombolysis
+ Angioplasty
+ Stent placement
+ Immediate anticoagulation with heparin
+ Endovascular intervention
+ Surgical backup: open surgical thrombectomy or bypass grafting
+ Supportive care
+ Renal function monitoring","Emergency bilateral lower limb angioplasty including athrombectomy, balloon angioplasty, and catheter-directed thrombolysis (CDT)
+ Tissue plasmin activator infusion at 0.5 mg/hour
+ Systemic intravenous infusion of unfractionated heparin at 500 IU/hour
+ Oral antiplatelet therapy: aspirin and clopidogrel
+ Stage II pharmaco-mechanical thrombolysis
+ Intravenous hydration
+ Oral anticoagulant therapy: Warfarin 5 mg daily",0.46955988495006906
+risks,"Tissue necrosis
+ Renal failure
+ Embolic events
+ Limb loss
+ Mortality",,0.0
+next_steps,"Immediate imaging (Doppler ultrasound or CT angiography)
+ Revascularization
+ Referral to vascular surgery
+ Close monitoring of limb perfusion, renal function, and vital signs","Transfer to ICU for monitoring by a multidisciplinary team
+ Follow-up with nephrology team for kidney function monitoring
+ Downgrade to regular surgical floor after condition stabilization
+ Discharge after dramatic improvement",0.37666961570531265
+notes,"Patient is a 41-year-old male with type-2 diabetes, hypertension, and previous heart disease (IHD).
+ Recent ureteroscopy for kidney stone.
+ Symptoms include severe back pain, nausea, vomiting, leg weakness, and absent peripheral pulses.","Aortic thrombus present
+ Successful recanalization of distal aorta and iliac vessels after CDT
+ Kidney function deterioration secondary to infarction, improved with treatment",0.35578131221821624

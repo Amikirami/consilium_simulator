@@ -1,0 +1,577 @@
+
+(vnvchat) D:\proj\MEDVOICE\chat_chats\consilium_simulator>python protocol_agent_consim_en_v2.py
+ID                                           | Publisher    | Tags
+-----------------------------------------------------------------
+openai/gpt-4.1                               | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-4.1-mini                          | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-4.1-nano                          | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-4o                                | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-4o-mini                           | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-5                                 | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-5-chat                            | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-5-mini                            | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-5-nano                            | OpenAI          | multipurpose, multilingual, multimodal
+openai/o1                                    | OpenAI          | reasoning, multilingual, coding
+openai/o1-mini                               | OpenAI          | reasoning, multilingual, coding
+openai/o1-preview                            | OpenAI          | reasoning, multilingual, coding
+openai/o3                                    | OpenAI          | multipurpose, multilingual, multimodal
+openai/o3-mini                               | OpenAI          | reasoning, multilingual, coding
+openai/o4-mini                               | OpenAI          | multipurpose, multilingual, multimodal
+openai/text-embedding-3-large                | OpenAI          | rag
+openai/text-embedding-3-small                | OpenAI          | rag
+ai21-labs/ai21-jamba-1.5-large               | AI21 Labs       | rag, multilingual, large context
+cohere/cohere-command-a                      | Cohere          | rag, multilingual
+cohere/cohere-command-r-08-2024              | Cohere          | rag, multilingual
+cohere/cohere-command-r-plus-08-2024         | Cohere          | rag, multilingual
+deepseek/deepseek-r1                         | DeepSeek        | reasoning, coding, agents
+deepseek/deepseek-r1-0528                    | DeepSeek        | reasoning, coding, agents
+deepseek/deepseek-v3-0324                    | DeepSeek        | coding, agents
+meta/llama-3.2-11b-vision-instruct           | Meta            | multimodal, reasoning, conversation
+meta/llama-3.2-90b-vision-instruct           | Meta            | multimodal, reasoning, conversation
+meta/llama-3.3-70b-instruct                  | Meta            | conversation
+meta/llama-4-maverick-17b-128e-instruct-fp8  | Meta            | multimodal, conversation, multilingual
+meta/llama-4-scout-17b-16e-instruct          | Meta            | multimodal, conversation, multilingual
+meta/meta-llama-3.1-405b-instruct            | Meta            | conversation
+meta/meta-llama-3.1-8b-instruct              | Meta            | conversation
+mistral-ai/codestral-2501                    | Mistral AI      | reasoning, coding
+mistral-ai/ministral-3b                      | Mistral AI      | low latency, agents, reasoning
+mistral-ai/mistral-medium-2505               | Mistral AI      | multipurpose, vision
+mistral-ai/mistral-small-2503                | Mistral AI      | multipurpose, vision, multimodal
+xai/grok-3                                   | xAI             | understanding, instruction, summarization
+xai/grok-3-mini                              | xAI             | agents, reasoning, coding
+microsoft/mai-ds-r1                          | Microsoft       | reasoning, coding, agents
+microsoft/phi-4                              | Microsoft       | reasoning, understanding, low latency
+microsoft/phi-4-mini-instruct                | Microsoft       | reasoning, agents, multilingual
+microsoft/phi-4-mini-reasoning               | Microsoft       | reasoning, large context, low latency
+microsoft/phi-4-multimodal-instruct          | Microsoft       | vision, audio, summarization
+microsoft/phi-4-reasoning                    | Microsoft       | reasoning, large context, low latency
+Selected models: ['meta/llama-3.2-11b-vision-instruct', 'mistral-ai/codestral-2501', 'meta/llama-3.2-90b-vision-instruct', 'xai/grok-3']
+openai/gpt-4o-mini:: True
+Agent registered: Nephrologist
+Agent registered: Hematologist
+Agent registered: Vascular Surgeon
+Agent registered: Endovascular Interventionist
+Starting conversation: A clinical assessment is required for a patient presenting with the following symptoms.
+
+azureml-ms-model-error-comprehensive --
+
+[System->System] inform: The patient presents with severe back pain, nausea, vomiting, and significant lower limb weakness, with absent peripheral pulses in both lower limbs. Vital signs show tachycardia, hypertension, and normal oxygen saturation. Laboratory results indicate mildly elevated creatinine and markedly elevated CPK and LDH, suggesting acute kidney injury. CTA reveals a totally occluded distal abdominal aorta with a massive intramural thrombus, extending to both iliac arteries. Further thrombosis in both renal and splenic arteries indicates subtotal infarction of the right kidney, segmental infarction of the left renal lower pole, and wedge-shaped infarction of the mid-part of the spleen. No evidence of aortic dissection was found. The patient requires urgent thrombolytic therapy and surgical intervention to restore blood flow to the lower limbs and kidneys.
+
+azureml-ms-model-error-comprehensive --
+
+[System->System] inform: Based on the patient's symptoms and laboratory results, I suspect a thrombotic event. The elevated CPK and LDH levels, along with the CTA findings of a massive intramural thrombus in the abdominal aorta and thrombosis in the renal and splenic arteries, suggest a diagnosis of acute limb ischemia and visceral artery thrombosis. Given the patient's history of IHD and hypertension, I would recommend further evaluation for a hypercoagulable state.
+
+azureml-ms-model-error-comprehensive --
+
+[System->System] inform: Based on the patient's symptoms and CTA findings, I suspect a massive aortic thromboembolism with bilateral lower limb ischemia. The patient's severe back pain, nausea, vomiting, and weakness in both legs, along with absent peripheral pulses, are consistent with this diagnosis. The CTA findings of total occlusion of the distal abdominal aorta and massive intramural thrombus extending to both iliac arteries confirm this suspicion.
+
+Immediate surgical intervention is required to restore blood flow to the lower limbs and prevent further ischemic damage. I recommend an urgent surgical exploration with possible thrombectomy and aortic bypass grafting to restore blood flow to the lower limbs.
+
+azureml-ms-model-error-comprehensive --
+
+[System->System] inform: The patient presents with severe back pain, nausea, vomiting, and significant lower limb weakness, with absent peripheral pulses in both lower limbs. Vital signs show sinus tachycardia, elevated blood pressure, and normal oxygen saturation. Laboratory results indicate mildly elevated creatinine, markedly elevated CPK and LDH, and normal CBC. CTA reveals a totally occluded distal abdominal aorta with a massive intramural thrombus extending to both iliac arteries, and further thrombosis in both renal and splenic arteries, causing renal and splenic infarction. No evidence of aortic dissection.
+
+Recommendations:
+1. Immediate catheter-based thrombolysis for the abdominal aorta and iliac arteries.
+2. Stent placement in the abdominal aorta and iliac arteries to prevent reocclusion.
+3. Close monitoring of renal and splenic function.
+4. Consideration of urgent surgical consultation for possible aortic repair or replacement.
+
+azureml-ms-model-error-comprehensive --
+
+[Attending Physician->Attending Physician] propose: Urgent risk assessment:
+
+* High risk of limb loss due to bilateral lower limb ischemia
+* High risk of mortality due to massive aortic thromboembolism
+
+Treatment plan:
+
+* Immediate anticoagulation with heparin to prevent further clot propagation
+* Emergent endovascular intervention (thrombectomy or stenting) to restore blood flow to the lower limbs
+* Consideration of surgical thrombectomy if endovascular approach fails
+* Aggressive pain management and supportive care to stabilize the patient
+
+azureml-ms-model-error-comprehensive --
+
+
+azureml-ms-model-error-comprehensive --
+
+
+azureml-ms-model-error-comprehensive --
+
+[Attending Physician->Attending Physician] propose: **Risk Assessment:**
+- **High Risk:** Severe back pain, nausea, vomiting, lower limb weakness, absent pulses, sinus tachycardia, elevated blood pressure.
+- **Potential Complications:** Aortic dissection (no evidence found), stroke, myocardial infarction, renal failure.
+
+**Treatment Plan:**
+1. **Immediate Intervention:**
+   - **Catheter-based Thrombolysis:** Administer tissue plasminogen activator (tPA) to lyse any potential clot causing ischemia.
+   - **Angioplasty and Stenting:** Prepare for urgent angioplasty and stent placement in the aorta and/or iliac arteries to restore blood flow.
+
+2. **Monitoring:**
+   - Continuous monitoring of vital signs, blood pressure, and neurological status.
+   - Renal function tests to monitor for potential renal failure.
+
+3. **Supportive Care:**
+   - Intravenous hydration and pain management.
+   - Prepare for potential transfer to the intensive care unit (ICU) for close monitoring.
+[Attending Physician->Attending Physician] propose: **Risk Assessment:**
+- **High Risk of Aortic Dissection:** No evidence of dissection found in the scan, but severe back pain, nausea, vomiting, lower limb weakness, absent pulses, tachycardia, hypertension, and no vital signs suggest a high risk of aortic dissection.
+- **Kidney Failure:** Severe back pain and lower limb weakness could indicate renal artery occlusion or dissection, further compromising kidney function.
+
+**Treatment Plan:**
+- **Immediate Intervention:**
+  - Administer IV fluids and monitor kidney function closely.
+  - Prepare for urgent aortic surgery or endovascular repair.
+  - Consider renal protective measures, such as IV hydration and monitoring for acute kidney injury (AKI).
+- **Monitoring:**
+  - Continuous monitoring of vital signs, kidney function, and aortic status.
+  - Regular imaging to assess aortic dissection progression.
+- **Consultations:**
+  - Consult with cardiothoracic surgery and vascular surgery teams.
+  - Consult with nephrology for renal management.
+[Attending Physician->Attending Physician] propose: **Urgent Risk Assessment and Treatment Plan**
+
+Given the massive intramural thrombus in the abdominal aorta, I assess the patient's risk of thromboembolic complications as extremely high. The elevated CPK and LDH levels indicate significant tissue damage.
+
+**Treatment Plan:**
+
+1. **Immediate Anticoagulation**: Administer unfractionated heparin (UFH) or low molecular weight heparin (LMWH) to prevent further thrombus formation.
+2. **Thrombolytic Therapy**: Consider administering tissue plasminogen activator (tPA) to dissolve the existing thrombus, if feasible.
+3. **Monitoring**: Closely monitor the patient's vital signs, laboratory results (including CPK, LDH, and coagulation studies), and imaging studies (e.g., CTA) for signs of thrombus resolution or complications.
+4. **Surgical Evaluation**: Consult with a vascular surgeon to assess the need for surgical intervention, such as thrombectomy or aortic repair.
+
+**Time is of the essence**. Implement these measures promptly to minimize the risk of further complications and improve patient outcomes.
+
+============================================================
+CONVERSATION 7983658d-7878-400e-8e7e-914dbdbb5618
+Total messages: 16
+============================================================
+[ 0] System -> Nephrologist (inform)
+    TOPIC: A clinical assessment is required for a patient presenting with the following symptoms.
+
+FACTS:
+A 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone.
+The patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs.
+The patient reported no history of trauma, fever, dysuria, or hematuria.
+The patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C.
+Both lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent.
+An echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes.
+At this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed.
+Laboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L).
+The  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L).
+Creatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated.
+CPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L).
+CTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries.
+Further thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen.
+Notably, the scan did not reveal any evidence of dissection in any aortic division.
+
+------------------------------------------------------------
+[ 1] Nephrologist -> System (inform)
+    The patient presents with severe back pain, nausea, vomiting, and significant lower limb weakness, with absent peripheral pulses in both lower limbs. Vital signs show tachycardia, hypertension, and normal oxygen saturation. Laboratory results indicate mildly elevated creatinine and markedly elevated CPK and LDH, suggesting acute kidney injury. CTA reveals a totally occluded distal abdominal aorta with a massive intramural thrombus, extending to both iliac arteries. Further thrombosis in both renal and splenic arteries indicates subtotal infarction of the right kidney, segmental infarction of the left renal lower pole, and wedge-shaped infarction of the mid-part of the spleen. No evidence of aortic dissection was found. The patient requires urgent thrombolytic therapy and surgical intervention to restore blood flow to the lower limbs and kidneys.
+------------------------------------------------------------
+[ 2] System -> Hematologist (inform)
+    TOPIC: A clinical assessment is required for a patient presenting with the following symptoms.
+
+FACTS:
+A 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone.
+The patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs.
+The patient reported no history of trauma, fever, dysuria, or hematuria.
+The patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C.
+Both lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent.
+An echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes.
+At this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed.
+Laboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L).
+The  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L).
+Creatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated.
+CPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L).
+CTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries.
+Further thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen.
+Notably, the scan did not reveal any evidence of dissection in any aortic division.
+
+------------------------------------------------------------
+[ 3] Hematologist -> System (inform)
+    Based on the patient's symptoms and laboratory results, I suspect a thrombotic event. The elevated CPK and LDH levels, along with the CTA findings of a massive intramural thrombus in the abdominal aorta and thrombosis in the renal and splenic arteries, suggest a diagnosis of acute limb ischemia and visceral artery thrombosis. Given the patient's history of IHD and hypertension, I would recommend further evaluation for a hypercoagulable state.
+------------------------------------------------------------
+[ 4] System -> Vascular Surgeon (inform)
+    TOPIC: A clinical assessment is required for a patient presenting with the following symptoms.
+
+FACTS:
+A 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone.
+The patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs.
+The patient reported no history of trauma, fever, dysuria, or hematuria.
+The patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C.
+Both lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent.
+An echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes.
+At this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed.
+Laboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L).
+The  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L).
+Creatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated.
+CPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L).
+CTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries.
+Further thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen.
+Notably, the scan did not reveal any evidence of dissection in any aortic division.
+
+------------------------------------------------------------
+[ 5] Vascular Surgeon -> System (inform)
+    Based on the patient's symptoms and CTA findings, I suspect a massive aortic thromboembolism with bilateral lower limb ischemia. The patient's severe back pain, nausea, vomiting, and weakness in both legs, along with absent peripheral pulses, are consistent with this diagnosis. The CTA findings of total occlusion of the distal abdominal aorta and massive intramural thrombus extending to both iliac arteries confirm this suspicion.
+
+Immediate surgical intervention is required to restore blood flow to the lower limbs and prevent further ischemic damage. I recommend an urgent surgical exploration with possible thrombectomy and aortic bypass grafting to restore blood flow to the lower limbs.
+------------------------------------------------------------
+[ 6] System -> Endovascular Interventionist (inform)
+    TOPIC: A clinical assessment is required for a patient presenting with the following symptoms.
+
+FACTS:
+A 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone.
+The patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs.
+The patient reported no history of trauma, fever, dysuria, or hematuria.
+The patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C.
+Both lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent.
+An echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes.
+At this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed.
+Laboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L).
+The  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L).
+Creatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated.
+CPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L).
+CTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries.
+Further thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen.
+Notably, the scan did not reveal any evidence of dissection in any aortic division.
+
+------------------------------------------------------------
+[ 7] Endovascular Interventionist -> System (inform)
+    The patient presents with severe back pain, nausea, vomiting, and significant lower limb weakness, with absent peripheral pulses in both lower limbs. Vital signs show sinus tachycardia, elevated blood pressure, and normal oxygen saturation. Laboratory results indicate mildly elevated creatinine, markedly elevated CPK and LDH, and normal CBC. CTA reveals a totally occluded distal abdominal aorta with a massive intramural thrombus extending to both iliac arteries, and further thrombosis in both renal and splenic arteries, causing renal and splenic infarction. No evidence of aortic dissection.
+
+Recommendations:
+1. Immediate catheter-based thrombolysis for the abdominal aorta and iliac arteries.
+2. Stent placement in the abdominal aorta and iliac arteries to prevent reocclusion.
+3. Close monitoring of renal and splenic function.
+4. Consideration of urgent surgical consultation for possible aortic repair or replacement.
+------------------------------------------------------------
+[ 8] Attending Physician -> Nephrologist (request)
+    Please provide urgent risk assessment and treatment plan. Time critical!
+------------------------------------------------------------
+[ 9] Attending Physician -> Hematologist (request)
+    Please provide urgent risk assessment and treatment plan. Time critical!
+------------------------------------------------------------
+[10] Attending Physician -> Vascular Surgeon (request)
+    Please provide urgent risk assessment and treatment plan. Time critical!
+------------------------------------------------------------
+[11] Attending Physician -> Endovascular Interventionist (request)
+    Please provide urgent risk assessment and treatment plan. Time critical!
+------------------------------------------------------------
+[12] Vascular Surgeon -> Attending Physician (propose)
+    Urgent risk assessment:
+
+* High risk of limb loss due to bilateral lower limb ischemia
+* High risk of mortality due to massive aortic thromboembolism
+
+Treatment plan:
+
+* Immediate anticoagulation with heparin to prevent further clot propagation
+* Emergent endovascular intervention (thrombectomy or stenting) to restore blood flow to the lower limbs
+* Consideration of surgical thrombectomy if endovascular approach fails
+* Aggressive pain management and supportive care to stabilize the patient
+------------------------------------------------------------
+[13] Endovascular Interventionist -> Attending Physician (propose)
+    **Risk Assessment:**
+- **High Risk:** Severe back pain, nausea, vomiting, lower limb weakness, absent pulses, sinus tachycardia, elevated blood pressure.
+- **Potential Complications:** Aortic dissection (no evidence found), stroke, myocardial infarction, renal failure.
+
+**Treatment Plan:**
+1. **Immediate Intervention:**
+   - **Catheter-based Thrombolysis:** Administer tissue plasminogen activator (tPA) to lyse any potential clot causing ischemia.
+   - **Angioplasty and Stenting:** Prepare for urgent angioplasty and stent placement in the aorta and/or iliac arteries to restore blood flow.
+
+2. **Monitoring:**
+   - Continuous monitoring of vital signs, blood pressure, and neurological status.
+   - Renal function tests to monitor for potential renal failure.
+
+3. **Supportive Care:**
+   - Intravenous hydration and pain management.
+   - Prepare for potential transfer to the intensive care unit (ICU) for close monitoring.
+------------------------------------------------------------
+[14] Nephrologist -> Attending Physician (propose)
+    **Risk Assessment:**
+- **High Risk of Aortic Dissection:** No evidence of dissection found in the scan, but severe back pain, nausea, vomiting, lower limb weakness, absent pulses, tachycardia, hypertension, and no vital signs suggest a high risk of aortic dissection.
+- **Kidney Failure:** Severe back pain and lower limb weakness could indicate renal artery occlusion or dissection, further compromising kidney function.
+
+**Treatment Plan:**
+- **Immediate Intervention:**
+  - Administer IV fluids and monitor kidney function closely.
+  - Prepare for urgent aortic surgery or endovascular repair.
+  - Consider renal protective measures, such as IV hydration and monitoring for acute kidney injury (AKI).
+- **Monitoring:**
+  - Continuous monitoring of vital signs, kidney function, and aortic status.
+  - Regular imaging to assess aortic dissection progression.
+- **Consultations:**
+  - Consult with cardiothoracic surgery and vascular surgery teams.
+  - Consult with nephrology for renal management.
+------------------------------------------------------------
+[15] Hematologist -> Attending Physician (propose)
+    **Urgent Risk Assessment and Treatment Plan**
+
+Given the massive intramural thrombus in the abdominal aorta, I assess the patient's risk of thromboembolic complications as extremely high. The elevated CPK and LDH levels indicate significant tissue damage.
+
+**Treatment Plan:**
+
+1. **Immediate Anticoagulation**: Administer unfractionated heparin (UFH) or low molecular weight heparin (LMWH) to prevent further thrombus formation.
+2. **Thrombolytic Therapy**: Consider administering tissue plasminogen activator (tPA) to dissolve the existing thrombus, if feasible.
+3. **Monitoring**: Closely monitor the patient's vital signs, laboratory results (including CPK, LDH, and coagulation studies), and imaging studies (e.g., CTA) for signs of thrombus resolution or complications.
+4. **Surgical Evaluation**: Consult with a vascular surgeon to assess the need for surgical intervention, such as thrombectomy or aortic repair.
+
+**Time is of the essence**. Implement these measures promptly to minimize the risk of further complications and improve patient outcomes.
+------------------------------------------------------------
+Full conversation saved to out-prot/conversation_7983658d.json
+
+Liczba wiadomosci: 16
+
+####
+####
+####
+####
+Proposals: Vascular Surgeon:
+Urgent risk assessment:
+
+* High risk of limb loss due to bilateral lower limb ischemia
+* High risk of mortality due to massive aortic thromboembolism
+
+Treatment plan:
+
+* Immediate anticoagulation with heparin to prevent further clot propagation
+* Emergent endovascular intervention (thrombectomy or stenting) to restore blood flow to the lower limbs
+* Consideration of surgical thrombectomy if endovascular approach fails
+* Aggressive pain management and supportive care to stabilize the patient
+
+Endovascular Interventionist:
+**Risk Assessment:**
+- **High Risk:** Severe back pain, nausea, vomiting, lower limb weakness, absent pulses, sinus tachycardia, elevated blood pressure.
+- **Potential Complications:** Aortic dissection (no evidence found), stroke, myocardial infarction, renal failure.
+
+**Treatment Plan:**
+1. **Immediate Intervention:**
+   - **Catheter-based Thrombolysis:** Administer tissue plasminogen activator (tPA) to lyse any potential clot causing ischemia.
+   - **Angioplasty and Stenting:** Prepare for urgent angioplasty and stent placement in the aorta and/or iliac arteries to restore blood flow.
+
+2. **Monitoring:**
+   - Continuous monitoring of vital signs, blood pressure, and neurological status.
+   - Renal function tests to monitor for potential renal failure.
+
+3. **Supportive Care:**
+   - Intravenous hydration and pain management.
+   - Prepare for potential transfer to the intensive care unit (ICU) for close monitoring.
+
+Nephrologist:
+**Risk Assessment:**
+- **High Risk of Aortic Dissection:** No evidence of dissection found in the scan, but severe back pain, nausea, vomiting, lower limb weakness, absent pulses, tachycardia, hypertension, and no vital signs suggest a high risk of aortic dissection.
+- **Kidney Failure:** Severe back pain and lower limb weakness could indicate renal artery occlusion or dissection, further compromising kidney function.
+
+**Treatment Plan:**
+- **Immediate Intervention:**
+  - Administer IV fluids and monitor kidney function closely.
+  - Prepare for urgent aortic surgery or endovascular repair.
+  - Consider renal protective measures, such as IV hydration and monitoring for acute kidney injury (AKI).
+- **Monitoring:**
+  - Continuous monitoring of vital signs, kidney function, and aortic status.
+  - Regular imaging to assess aortic dissection progression.
+- **Consultations:**
+  - Consult with cardiothoracic surgery and vascular surgery teams.
+  - Consult with nephrology for renal management.
+
+Hematologist:
+**Urgent Risk Assessment and Treatment Plan**
+
+Given the massive intramural thrombus in the abdominal aorta, I assess the patient's risk of thromboembolic complications as extremely high. The elevated CPK and LDH levels indicate significant tissue damage.
+
+**Treatment Plan:**
+
+1. **Immediate Anticoagulation**: Administer unfractionated heparin (UFH) or low molecular weight heparin (LMWH) to prevent further thrombus formation.
+2. **Thrombolytic Therapy**: Consider administering tissue plasminogen activator (tPA) to dissolve the existing thrombus, if feasible.
+3. **Monitoring**: Closely monitor the patient's vital signs, laboratory results (including CPK, LDH, and coagulation studies), and imaging studies (e.g., CTA) for signs of thrombus resolution or complications.
+4. **Surgical Evaluation**: Consult with a vascular surgeon to assess the need for surgical intervention, such as thrombectomy or aortic repair.
+
+**Time is of the essence**. Implement these measures promptly to minimize the risk of further complications and improve patient outcomes.
+
+####
+####
+####
+####
+User prompt content: Vascular Surgeon:
+Urgent risk assessment:
+
+* High risk of limb loss due to bilateral lower limb ischemia
+* High risk of mortality due to massive aortic thromboembolism
+
+Treatment plan:
+
+* Immediate anticoagulation with heparin to prevent further clot propagation
+* Emergent endovascular intervention (thrombectomy or stenting) to restore blood flow to the lower limbs
+* Consideration of surgical thrombectomy if endovascular approach fails
+* Aggressive pain management and supportive care to stabilize the patient
+
+Endovascular Interventionist:
+**Risk Assessment:**
+- **High Risk:** Severe back pain, nausea, vomiting, lower limb weakness, absent pulses, sinus tachycardia, elevated blood pressure.
+- **Potential Complications:** Aortic dissection (no evidence found), stroke, myocardial infarction, renal failure.
+
+**Treatment Plan:**
+1. **Immediate Intervention:**
+   - **Catheter-based Thrombolysis:** Administer tissue plasminogen activator (tPA) to lyse any potential clot causing ischemia.
+   - **Angioplasty and Stenting:** Prepare for urgent angioplasty and stent placement in the aorta and/or iliac arteries to restore blood flow.
+
+2. **Monitoring:**
+   - Continuous monitoring of vital signs, blood pressure, and neurological status.
+   - Renal function tests to monitor for potential renal failure.
+
+3. **Supportive Care:**
+   - Intravenous hydration and pain management.
+   - Prepare for potential transfer to the intensive care unit (ICU) for close monitoring.
+
+Nephrologist:
+**Risk Assessment:**
+- **High Risk of Aortic Dissection:** No evidence of dissection found in the scan, but severe back pain, nausea, vomiting, lower limb weakness, absent pulses, tachycardia, hypertension, and no vital signs suggest a high risk of aortic dissection.
+- **Kidney Failure:** Severe back pain and lower limb weakness could indicate renal artery occlusion or dissection, further compromising kidney function.
+
+**Treatment Plan:**
+- **Immediate Intervention:**
+  - Administer IV fluids and monitor kidney function closely.
+  - Prepare for urgent aortic surgery or endovascular repair.
+  - Consider renal protective measures, such as IV hydration and monitoring for acute kidney injury (AKI).
+- **Monitoring:**
+  - Continuous monitoring of vital signs, kidney function, and aortic status.
+  - Regular imaging to assess aortic dissection progression.
+- **Consultations:**
+  - Consult with cardiothoracic surgery and vascular surgery teams.
+  - Consult with nephrology for renal management.
+
+Hematologist:
+**Urgent Risk Assessment and Treatment Plan**
+
+Given the massive intramural thrombus in the abdominal aorta, I assess the patient's risk of thromboembolic complications as extremely high. The elevated CPK and LDH levels indicate significant tissue damage.
+
+**Treatment Plan:**
+
+1. **Immediate Anticoagulation**: Administer unfractionated heparin (UFH) or low molecular weight heparin (LMWH) to prevent further thrombus formation.
+2. **Thrombolytic Therapy**: Consider administering tissue plasminogen activator (tPA) to dissolve the existing thrombus, if feasible.
+3. **Monitoring**: Closely monitor the patient's vital signs, laboratory results (including CPK, LDH, and coagulation studies), and imaging studies (e.g., CTA) for signs of thrombus resolution or complications.
+4. **Surgical Evaluation**: Consult with a vascular surgeon to assess the need for surgical intervention, such as thrombectomy or aortic repair.
+
+**Time is of the essence**. Implement these measures promptly to minimize the risk of further complications and improve patient outcomes.
+
+####
+####
+####
+####
+Conv summary: {
+  "diagnoses_confirmed": [],
+  "diagnoses_suspected": [
+    "Bilateral lower limb ischemia",
+    "Massive aortic thromboembolism",
+    "Aortic dissection (high risk)",
+    "Renal artery occlusion or dissection (high risk)",
+    "Kidney failure (high risk)"
+  ],
+  "treatment_plan": [
+    "Immediate anticoagulation with heparin",
+    "Emergent endovascular intervention (thrombectomy or stenting)",
+    "Aggressive pain management and supportive care",
+    "Catheter-based thrombolysis with tPA",
+    "Angioplasty and stenting in the aorta and/or iliac arteries",
+    "IV fluids and monitoring for kidney function",
+    "Consider renal protective measures"
+  ],
+  "next_steps": [
+    "Continuous monitoring of vital signs, blood pressure, and neurological status",
+    "Regular imaging to assess aortic dissection progression",
+    "Consult with cardiothoracic surgery and vascular surgery teams",
+    "Consult with nephrology for renal management"
+  ],
+  "risks": [
+    "High risk of limb loss due to bilateral lower limb ischemia",
+    "High risk of mortality due to massive aortic thromboembolism",
+    "Potential complications: stroke, myocardial infarction, renal failure"
+  ],
+  "notes": [
+    "Time is of the essence for interventions to minimize complications"
+  ]
+}
+Full conversation saved to out-prot/conversation_7983658d.json
+Creating reference summary...
+-----------
+Converstion - structured::
+{
+  "diagnoses_confirmed": [],
+  "diagnoses_suspected": [
+    "Bilateral lower limb ischemia",
+    "Massive aortic thromboembolism",
+    "Aortic dissection (high risk)",
+    "Renal artery occlusion or dissection (high risk)",
+    "Kidney failure (high risk)"
+  ],
+  "treatment_plan": [
+    "Immediate anticoagulation with heparin",
+    "Emergent endovascular intervention (thrombectomy or stenting)",
+    "Aggressive pain management and supportive care",
+    "Catheter-based thrombolysis with tPA",
+    "Angioplasty and stenting in the aorta and/or iliac arteries",
+    "IV fluids and monitoring for kidney function",
+    "Consider renal protective measures"
+  ],
+  "risks": [
+    "High risk of limb loss due to bilateral lower limb ischemia",
+    "High risk of mortality due to massive aortic thromboembolism",
+    "Potential complications: stroke, myocardial infarction, renal failure"
+  ],
+  "next_steps": [
+    "Continuous monitoring of vital signs, blood pressure, and neurological status",
+    "Regular imaging to assess aortic dissection progression",
+    "Consult with cardiothoracic surgery and vascular surgery teams",
+    "Consult with nephrology for renal management"
+  ],
+  "notes": [
+    "Time is of the essence for interventions to minimize complications"
+  ]
+}
+---------
+Reference   - structured::
+{
+  "diagnoses_confirmed": [],
+  "diagnoses_suspected": [],
+  "treatment_plan": [
+    "Emergency bilateral lower limb angioplasty",
+    "Athrombectomy",
+    "Balloon angioplasty",
+    "Catheter-directed thrombolysis (CDT) of the aortic thrombus with a bolus dose of 5 mg",
+    "Infusion with tissue plasminogen activator (0.5 mg/hour)",
+    "Systemic intravenous infusion of unfractionated heparin at 500 IU/hour",
+    "Oral antiplatelet therapy of aspirin and clopidogrel",
+    "Oral anticoagulant therapy with 5 mg warfarin daily"
+  ],
+  "risks": [
+    "Deterioration of kidney function secondary to infarction"
+  ],
+  "next_steps": [
+    "Monitoring in the intensive care unit (ICU) by a multidisciplinary team",
+    "Stage II pharmaco-mechanical thrombolysis in the catheterization lab",
+    "Close follow-up of kidney function by the nephrology team"
+  ],
+  "notes": [
+    "An abdominal angiogram showed patency of the distal aorta and iliac vessels, confirming successful recanalization after CDT.",
+    "Creatinine increased to 409 umol/L but improved with intravenous hydration.",
+    "The patient was downgraded to the regular surgical floor after one week."
+  ]
+}
+Comparing...
+===================
+=======RESULT======
+{'diagnoses_confirmed': 0.0, 'diagnoses_suspected': 0.0, 'treatment_plan': 0.5052539261643906, 'risks': 0.49080746047933277, 'next_steps': 0.5295146329498838, 'notes': 0.20374000462214775}
+DF::---------
+                                                           conversation                                          reference
+diagnoses_confirmed                                                                                                     
+diagnoses_suspected  Bilateral lower limb ischemia\n Massive aortic...                                                  
+treatment_plan       Immediate anticoagulation with heparin\n Emerg...  Emergency bilateral lower limb angioplasty\n A...
+risks                High risk of limb loss due to bilateral lower ...  Deterioration of kidney function secondary to ...
+next_steps           Continuous monitoring of vital signs, blood pr...  Monitoring in the intensive care unit (ICU) by...
+notes                Time is of the essence for interventions to mi...  An abdominal angiogram showed patency of the d...
+
+(vnvchat) D:\proj\MEDVOICE\chat_chats\consilium_simulator>
+(vnvchat) D:\proj\MEDVOICE\chat_chats\consilium_simulator>

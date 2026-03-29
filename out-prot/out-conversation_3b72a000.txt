@@ -1,0 +1,608 @@
+
+(vnvchat) D:\proj\MEDVOICE\chat_chats\consilium_simulator>python protocol_ageny_con_sim_en.py
+ID                                           | Publisher    | Tags
+-----------------------------------------------------------------
+openai/gpt-4.1                               | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-4.1-mini                          | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-4.1-nano                          | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-4o                                | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-4o-mini                           | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-5                                 | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-5-chat                            | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-5-mini                            | OpenAI          | multipurpose, multilingual, multimodal
+openai/gpt-5-nano                            | OpenAI          | multipurpose, multilingual, multimodal
+openai/o1                                    | OpenAI          | reasoning, multilingual, coding
+openai/o1-mini                               | OpenAI          | reasoning, multilingual, coding
+openai/o1-preview                            | OpenAI          | reasoning, multilingual, coding
+openai/o3                                    | OpenAI          | multipurpose, multilingual, multimodal
+openai/o3-mini                               | OpenAI          | reasoning, multilingual, coding
+openai/o4-mini                               | OpenAI          | multipurpose, multilingual, multimodal
+openai/text-embedding-3-large                | OpenAI          | rag
+openai/text-embedding-3-small                | OpenAI          | rag
+ai21-labs/ai21-jamba-1.5-large               | AI21 Labs       | rag, multilingual, large context
+cohere/cohere-command-a                      | Cohere          | rag, multilingual
+cohere/cohere-command-r-08-2024              | Cohere          | rag, multilingual
+cohere/cohere-command-r-plus-08-2024         | Cohere          | rag, multilingual
+deepseek/deepseek-r1                         | DeepSeek        | reasoning, coding, agents
+deepseek/deepseek-r1-0528                    | DeepSeek        | reasoning, coding, agents
+deepseek/deepseek-v3-0324                    | DeepSeek        | coding, agents
+meta/llama-3.2-11b-vision-instruct           | Meta            | multimodal, reasoning, conversation
+meta/llama-3.2-90b-vision-instruct           | Meta            | multimodal, reasoning, conversation
+meta/llama-3.3-70b-instruct                  | Meta            | conversation
+meta/llama-4-maverick-17b-128e-instruct-fp8  | Meta            | multimodal, conversation, multilingual
+meta/llama-4-scout-17b-16e-instruct          | Meta            | multimodal, conversation, multilingual
+meta/meta-llama-3.1-405b-instruct            | Meta            | conversation
+meta/meta-llama-3.1-8b-instruct              | Meta            | conversation
+mistral-ai/codestral-2501                    | Mistral AI      | reasoning, coding
+mistral-ai/ministral-3b                      | Mistral AI      | low latency, agents, reasoning
+mistral-ai/mistral-medium-2505               | Mistral AI      | multipurpose, vision
+mistral-ai/mistral-small-2503                | Mistral AI      | multipurpose, vision, multimodal
+xai/grok-3                                   | xAI             | understanding, instruction, summarization
+xai/grok-3-mini                              | xAI             | agents, reasoning, coding
+microsoft/mai-ds-r1                          | Microsoft       | reasoning, coding, agents
+microsoft/phi-4                              | Microsoft       | reasoning, understanding, low latency
+microsoft/phi-4-mini-instruct                | Microsoft       | reasoning, agents, multilingual
+microsoft/phi-4-mini-reasoning               | Microsoft       | reasoning, large context, low latency
+microsoft/phi-4-multimodal-instruct          | Microsoft       | vision, audio, summarization
+microsoft/phi-4-reasoning                    | Microsoft       | reasoning, large context, low latency
+Selected models: ['meta/llama-4-maverick-17b-128e-instruct-fp8', 'openai/gpt-4o', 'mistral-ai/mistral-small-2503', 'mistral-ai/ministral-3b']
+openai/gpt-4o-mini:: True
+Agent registered: Nephrologist
+Agent registered: Hematologist
+Agent registered: Vascular Surgeon
+Agent registered: Endovascular Interventionist
+Starting conversation: A clinical assessment is required for a patient presenting with the following symptoms.
+
+skip-error-remapping true
+x-ratelimit-limit-requests 60000
+x-ratelimit-limit-tokens 10000000
+x-ratelimit-remaining-requests 59999
+x-ratelimit-remaining-tokens 9999281
+x-ratelimit-reset-requests 1
+x-ratelimit-reset-tokens 4
+
+[System->System] inform: The patient presents with acute limb ischemia, severe back pain, and evidence of multi-organ infarctions (renal and splenic) secondary to extensive thromboembolic disease involving the abdominal aorta and its branches. The markedly elevated CPK and LDH levels suggest significant muscle ischemia and possible rhabdomyolysis, which could lead to acute kidney injury (AKI) on top of pre-existing mild renal impairment (creatinine 109 µmol/L).
+
+Immediate management should include:
+1. **Vascular intervention**: Urgent revascularization (thrombectomy or thrombolysis) to restore blood flow to the lower limbs and prevent further ischemic damage.
+2. **Renal support**: Monitor renal function closely, ensure adequate hydration, and consider early nephrology consultation for potential AKI management.
+3. **Anticoagulation**: Initiate systemic anticoagulation to prevent further thrombus propagation.
+4. **Rhabdomyolysis management**: Aggressive IV fluid resuscitation to prevent myoglobin-induced kidney injury.
+5. **Multidisciplinary approach**: Collaboration with vascular surgery, nephrology, and critical care teams is essential.
+
+Further workup for hypercoagulable states and underlying causes of thrombosis is warranted.
+
+azureml-ms-model-error-comprehensive --
+
+[System->System] inform: The patient's presentation and imaging findings suggest a severe thrombotic event. The CTA reveals a total occlusion of the distal abdominal aorta with an extensive intramural thrombus extending into both iliac arteries. Additionally, there is thrombosis in both renal and splenic arteries, leading to infarctions in the right kidney, the left renal lower pole, and the spleen. The absence of aortic dissection indicates that the infarctions are likely due to thromboembolic events rather than dissection. The elevated CPK and LDH levels support the diagnosis of significant tissue ischemia and infarction. Immediate anticoagulation and possibly thrombolytic therapy or surgical intervention should be considered to manage the extensive thrombosis and prevent further ischemic damage.
+
+azureml-ms-model-error-comprehensive --
+
+[System->System] inform: The patient presents with symptoms and imaging findings consistent with acute aortic occlusion due to thrombosis, extending to the iliac arteries, and involving renal and splenic arteries. As a Vascular Surgeon specializing in peripheral vascular and arterial intervention, my assessment is that this patient requires immediate surgical intervention to address the aortic occlusion and restore blood flow to the lower limbs and visceral organs. The presence of significant limb ischemia, as indicated by the absence of peripheral pulses and elevated CPK and LDH levels, further supports the urgency of the situation. The lack of dissection in any aortic division simplifies the surgical approach, focusing on thrombectomy or bypass grafting to restore perfusion. Prompt action is necessary to prevent further organ damage and potential limb loss.
+
+skip-error-remapping true
+x-ratelimit-limit-requests 60000
+x-ratelimit-limit-tokens 10000000
+x-ratelimit-remaining-requests 59999
+x-ratelimit-remaining-tokens 9999261
+x-ratelimit-reset-requests 1
+x-ratelimit-reset-tokens 4
+
+[System->System] inform: The patient presents with acute lower limb ischemia secondary to a massive thrombotic occlusion of the distal abdominal aorta and bilateral iliac arteries, with additional thrombotic involvement of the renal and splenic arteries. The elevated CPK and LDH levels indicate significant ischemic tissue damage, likely rhabdomyolysis. Immediate intervention is required to restore perfusion and prevent further complications.
+
+Recommended approach:
+1. **Urgent Endovascular Thrombectomy/Thrombolysis**: Perform catheter-directed thrombolysis or mechanical thrombectomy to restore blood flow in the aorta and iliac arteries.
+2. **Anticoagulation**: Initiate systemic anticoagulation (e.g., heparin) to prevent further thrombus propagation.
+3. **Renal and Splenic Artery Management**: Assess the feasibility of targeted thrombolysis or stenting for renal and splenic arteries to minimize organ damage.
+4. **Supportive Care**: Monitor renal function closely and manage rhabdomyolysis with aggressive IV hydration and electrolyte correction.
+5. **Investigate Underlying Cause**: Evaluate for hypercoagulable states or embolic sources, considering the patient's history of diabetes, hypertension, and ischemic heart disease.
+
+Time-sensitive intervention is critical to prevent irreversible ischemic damage and multi-organ failure.
+
+azureml-ms-model-error-comprehensive --
+
+[Attending Physician->Attending Physician] propose: **Risk Assessment:**
+- High risk of life-threatening complications due to severe thrombotic event.
+- Total occlusion of the distal abdominal aorta with extensive intramural thrombus.
+
+**Treatment Plan:**
+- Immediate anticoagulation therapy (e.g., heparin) to prevent further thrombus propagation.
+- Urgent consultation with interventional radiology or vascular surgery for potential thrombolysis or surgical thrombectomy.
+- Close monitoring in an intensive care setting.
+- No evidence of aortic dissection, so focus on managing the thrombotic event.
+
+azureml-ms-model-error-comprehensive --
+
+
+skip-error-remapping true
+x-ratelimit-limit-requests 60000
+x-ratelimit-limit-tokens 10000000
+x-ratelimit-remaining-requests 59999
+x-ratelimit-remaining-tokens 9999771
+x-ratelimit-reset-requests 1
+x-ratelimit-reset-tokens 1
+
+
+skip-error-remapping true
+x-ratelimit-limit-requests 60000
+x-ratelimit-limit-tokens 10000000
+x-ratelimit-remaining-requests 59999
+x-ratelimit-remaining-tokens 9999791
+x-ratelimit-reset-requests 1
+x-ratelimit-reset-tokens 1
+
+[Attending Physician->Attending Physician] propose: The patient has acute aortic occlusion due to thrombosis with involvement of renal and splenic arteries. Given the absence of dissection, the likely cause is thrombosis on a background of severe atherosclerosis.
+
+**Risk Assessment:**
+- High risk of mortality and morbidity due to organ and limb ischemia.
+- Immediate risk to kidneys, limbs, and visceral organs.
+
+**Treatment Plan:**
+1. **Emergency Surgery**: Thrombectomy or embolectomy to restore blood flow to the lower limbs and visceral organs.
+2. **Intra-arterial Thrombolysis**: Consider as an adjunct or alternative if surgery is not immediately feasible.
+3. **Supportive Care**: Anticoagulation, hemodynamic support, and close monitoring of renal function and limb perfusion.
+
+**Urgency:** Immediate intervention is required to prevent irreversible organ damage and death.
+[Attending Physician->Attending Physician] propose: The absence of aortic dissection is reassuring. The patient has acute lower limb ischemia due to thrombotic occlusion of the distal abdominal aorta and bilateral iliac arteries, with additional thrombotic involvement. Immediate treatment is critical to prevent irreversible ischemic damage.
+
+**Risk Assessment:**
+- High risk of limb loss and systemic complications (e.g., rhabdomyolysis, renal failure).
+- Time-sensitive intervention required to restore perfusion.
+
+**Treatment Plan:**
+1. **Anticoagulation:** Initiate intravenous heparin immediately to prevent further thrombus propagation.
+2. **Endovascular Thrombolysis:** Perform catheter-directed thrombolysis to dissolve the thrombus.
+3. **Angioplasty and Stent Placement:** Following thrombolysis, assess for residual stenosis and perform angioplasty with stent placement as needed to restore vessel patency.
+4. **Monitoring:** Continuous hemodynamic and limb perfusion monitoring during and after the procedure.
+5. **Post-procedure:** Initiate long-term anticoagulation and address underlying thrombotic risk factors.
+
+Proceed to the angiography suite urgently.
+[Attending Physician->Attending Physician] propose: The patient is at high risk for further thromboembolic complications and organ damage. Immediate treatment plan:
+
+1. **Anticoagulation**: Initiate intravenous heparin to prevent further clot propagation.
+2. **Vascular Surgery Consultation**: Urgent evaluation for possible thrombectomy or endovascular intervention.
+3. **Imaging**: Perform contrast-enhanced CT angiography to assess the extent of thromboembolic disease.
+4. **Organ Support**: Monitor renal function closely; consider renal replacement therapy if acute kidney injury progresses.
+5. **Pain Management**: Address severe back pain with appropriate analgesia.
+6. **Multidisciplinary Care**: Coordinate with cardiology and hematology for underlying thromboembolic risk factors.
+
+Time-sensitive intervention is critical to prevent further ischemia and organ damage.
+
+============================================================
+CONVERSATION 3b72a000-5d53-4928-8bdf-8b1750abe22e
+Total messages: 16
+============================================================
+[ 0] System -> Nephrologist (inform)
+    TOPIC: A clinical assessment is required for a patient presenting with the following symptoms.
+
+FACTS:
+A 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone.
+The patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs.
+The patient reported no history of trauma, fever, dysuria, or hematuria.
+The patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C.
+Both lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent.
+An echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes.
+At this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed.
+Laboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L).
+The  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L).
+Creatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated.
+CPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L).
+CTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries.
+Further thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen.
+Notably, the scan did not reveal any evidence of dissection in any aortic division.
+
+------------------------------------------------------------
+[ 1] Nephrologist -> System (inform)
+    The patient presents with acute limb ischemia, severe back pain, and evidence of multi-organ infarctions (renal and splenic) secondary to extensive thromboembolic disease involving the abdominal aorta and its branches. The markedly elevated CPK and LDH levels suggest significant muscle ischemia and possible rhabdomyolysis, which could lead to acute kidney injury (AKI) on top of pre-existing mild renal impairment (creatinine 109 µmol/L).
+
+Immediate management should include:
+1. **Vascular intervention**: Urgent revascularization (thrombectomy or thrombolysis) to restore blood flow to the lower limbs and prevent further ischemic damage.
+2. **Renal support**: Monitor renal function closely, ensure adequate hydration, and consider early nephrology consultation for potential AKI management.
+3. **Anticoagulation**: Initiate systemic anticoagulation to prevent further thrombus propagation.
+4. **Rhabdomyolysis management**: Aggressive IV fluid resuscitation to prevent myoglobin-induced kidney injury.
+5. **Multidisciplinary approach**: Collaboration with vascular surgery, nephrology, and critical care teams is essential.
+
+Further workup for hypercoagulable states and underlying causes of thrombosis is warranted.
+------------------------------------------------------------
+[ 2] System -> Hematologist (inform)
+    TOPIC: A clinical assessment is required for a patient presenting with the following symptoms.
+
+FACTS:
+A 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone.
+The patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs.
+The patient reported no history of trauma, fever, dysuria, or hematuria.
+The patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C.
+Both lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent.
+An echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes.
+At this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed.
+Laboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L).
+The  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L).
+Creatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated.
+CPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L).
+CTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries.
+Further thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen.
+Notably, the scan did not reveal any evidence of dissection in any aortic division.
+
+------------------------------------------------------------
+[ 3] Hematologist -> System (inform)
+    The patient's presentation and imaging findings suggest a severe thrombotic event. The CTA reveals a total occlusion of the distal abdominal aorta with an extensive intramural thrombus extending into both iliac arteries. Additionally, there is thrombosis in both renal and splenic arteries, leading to infarctions in the right kidney, the left renal lower pole, and the spleen. The absence of aortic dissection indicates that the infarctions are likely due to thromboembolic events rather than dissection. The elevated CPK and LDH levels support the diagnosis of significant tissue ischemia and infarction. Immediate anticoagulation and possibly thrombolytic therapy or surgical intervention should be considered to manage the extensive thrombosis and prevent further ischemic damage.
+------------------------------------------------------------
+[ 4] System -> Vascular Surgeon (inform)
+    TOPIC: A clinical assessment is required for a patient presenting with the following symptoms.
+
+FACTS:
+A 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone.
+The patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs.
+The patient reported no history of trauma, fever, dysuria, or hematuria.
+The patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C.
+Both lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent.
+An echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes.
+At this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed.
+Laboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L).
+The  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L).
+Creatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated.
+CPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L).
+CTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries.
+Further thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen.
+Notably, the scan did not reveal any evidence of dissection in any aortic division.
+
+------------------------------------------------------------
+[ 5] Vascular Surgeon -> System (inform)
+    The patient presents with symptoms and imaging findings consistent with acute aortic occlusion due to thrombosis, extending to the iliac arteries, and involving renal and splenic arteries. As a Vascular Surgeon specializing in peripheral vascular and arterial intervention, my assessment is that this patient requires immediate surgical intervention to address the aortic occlusion and restore blood flow to the lower limbs and visceral organs. The presence of significant limb ischemia, as indicated by the absence of peripheral pulses and elevated CPK and LDH levels, further supports the urgency of the situation. The lack of dissection in any aortic division simplifies the surgical approach, focusing on thrombectomy or bypass grafting to restore perfusion. Prompt action is necessary to prevent further organ damage and potential limb loss.
+------------------------------------------------------------
+[ 6] System -> Endovascular Interventionist (inform)
+    TOPIC: A clinical assessment is required for a patient presenting with the following symptoms.
+
+FACTS:
+A 41-year-old male with type-2 diabetes, hypertension, and IHD presented to the emergency department one week after ureteroscopy and laser lithotripsy for a right-sided mid-ureteric stone.
+The patient had complaints of severe back pain, nausea, and vomiting. The pain was radiating to both lower limbs and was associated with significant weakness in both legs.
+The patient reported no history of trauma, fever, dysuria, or hematuria.
+The patient’s vital signs were as follows: heart rate 130/min, blood pressure 150/90 mmHg, O2 saturation 98%, respiratory rate 20/min, and temperature 36 C.
+Both lower limbs were dusky in color; bilateral peripheral pulses of the femoral, popliteal, and dorsalis pedis arteries were absent.
+An echocardiogram (ECG) showed sinus  tachycardia  with  evidence  of  previous  anterior ischemic changes.
+At this time, lower limb ischemia was strongly suspected, and an urgent computed tomography angiography (CTA) of the chest, abdomen, and lower limbs was performed.
+Laboratory results showed a normal CBC of Hb 15.3 g/dL (ref. value: 12–17.5 g/dL), WBC 4.6 x109/L (ref. value: 4-10 x109/L) and platelet count 287 x109/L (ref. value: 150-410  x109/L).
+The  chemistry  panel  showed  normal electrolytes with mildly elevated creatinine 109 umol/L (ref. value: 44-115 umol/L).
+Creatine phosphokinase (CPK) and lactate dehydrogenase (LDH) enzymes were markedly elevated.
+CPK level was 58,155 IU/L (ref. value: 22-200 IU/L) while LDH level was 1,793 IU/L (ref. value 140-280 IU/L).
+CTA showed that the distal part of the abdominal aorta was totally occluded, with a massive intramural thrombus that extended distally to both iliac arteries.
+Further thrombosis was detected in both the renal and splenic arteries, resulting in a subtotal infarction of the right kidney, a segmental infarction of the left renal lower pole, and a wedge-shaped infarction of the mid-part of the spleen.
+Notably, the scan did not reveal any evidence of dissection in any aortic division.
+
+------------------------------------------------------------
+[ 7] Endovascular Interventionist -> System (inform)
+    The patient presents with acute lower limb ischemia secondary to a massive thrombotic occlusion of the distal abdominal aorta and bilateral iliac arteries, with additional thrombotic involvement of the renal and splenic arteries. The elevated CPK and LDH levels indicate significant ischemic tissue damage, likely rhabdomyolysis. Immediate intervention is required to restore perfusion and prevent further complications.
+
+Recommended approach:
+1. **Urgent Endovascular Thrombectomy/Thrombolysis**: Perform catheter-directed thrombolysis or mechanical thrombectomy to restore blood flow in the aorta and iliac arteries.
+2. **Anticoagulation**: Initiate systemic anticoagulation (e.g., heparin) to prevent further thrombus propagation.
+3. **Renal and Splenic Artery Management**: Assess the feasibility of targeted thrombolysis or stenting for renal and splenic arteries to minimize organ damage.
+4. **Supportive Care**: Monitor renal function closely and manage rhabdomyolysis with aggressive IV hydration and electrolyte correction.
+5. **Investigate Underlying Cause**: Evaluate for hypercoagulable states or embolic sources, considering the patient's history of diabetes, hypertension, and ischemic heart disease.
+
+Time-sensitive intervention is critical to prevent irreversible ischemic damage and multi-organ failure.
+------------------------------------------------------------
+[ 8] Attending Physician -> Nephrologist (request)
+    Please provide urgent risk assessment and treatment plan. Time critical!
+------------------------------------------------------------
+[ 9] Attending Physician -> Hematologist (request)
+    Please provide urgent risk assessment and treatment plan. Time critical!
+------------------------------------------------------------
+[10] Attending Physician -> Vascular Surgeon (request)
+    Please provide urgent risk assessment and treatment plan. Time critical!
+------------------------------------------------------------
+[11] Attending Physician -> Endovascular Interventionist (request)
+    Please provide urgent risk assessment and treatment plan. Time critical!
+------------------------------------------------------------
+[12] Hematologist -> Attending Physician (propose)
+    **Risk Assessment:**
+- High risk of life-threatening complications due to severe thrombotic event.
+- Total occlusion of the distal abdominal aorta with extensive intramural thrombus.
+
+**Treatment Plan:**
+- Immediate anticoagulation therapy (e.g., heparin) to prevent further thrombus propagation.
+- Urgent consultation with interventional radiology or vascular surgery for potential thrombolysis or surgical thrombectomy.
+- Close monitoring in an intensive care setting.
+- No evidence of aortic dissection, so focus on managing the thrombotic event.
+------------------------------------------------------------
+[13] Vascular Surgeon -> Attending Physician (propose)
+    The patient has acute aortic occlusion due to thrombosis with involvement of renal and splenic arteries. Given the absence of dissection, the likely cause is thrombosis on a background of severe atherosclerosis.
+
+**Risk Assessment:**
+- High risk of mortality and morbidity due to organ and limb ischemia.
+- Immediate risk to kidneys, limbs, and visceral organs.
+
+**Treatment Plan:**
+1. **Emergency Surgery**: Thrombectomy or embolectomy to restore blood flow to the lower limbs and visceral organs.
+2. **Intra-arterial Thrombolysis**: Consider as an adjunct or alternative if surgery is not immediately feasible.
+3. **Supportive Care**: Anticoagulation, hemodynamic support, and close monitoring of renal function and limb perfusion.
+
+**Urgency:** Immediate intervention is required to prevent irreversible organ damage and death.
+------------------------------------------------------------
+[14] Endovascular Interventionist -> Attending Physician (propose)
+    The absence of aortic dissection is reassuring. The patient has acute lower limb ischemia due to thrombotic occlusion of the distal abdominal aorta and bilateral iliac arteries, with additional thrombotic involvement. Immediate treatment is critical to prevent irreversible ischemic damage.
+
+**Risk Assessment:**
+- High risk of limb loss and systemic complications (e.g., rhabdomyolysis, renal failure).
+- Time-sensitive intervention required to restore perfusion.
+
+**Treatment Plan:**
+1. **Anticoagulation:** Initiate intravenous heparin immediately to prevent further thrombus propagation.
+2. **Endovascular Thrombolysis:** Perform catheter-directed thrombolysis to dissolve the thrombus.
+3. **Angioplasty and Stent Placement:** Following thrombolysis, assess for residual stenosis and perform angioplasty with stent placement as needed to restore vessel patency.
+4. **Monitoring:** Continuous hemodynamic and limb perfusion monitoring during and after the procedure.
+5. **Post-procedure:** Initiate long-term anticoagulation and address underlying thrombotic risk factors.
+
+Proceed to the angiography suite urgently.
+------------------------------------------------------------
+[15] Nephrologist -> Attending Physician (propose)
+    The patient is at high risk for further thromboembolic complications and organ damage. Immediate treatment plan:
+
+1. **Anticoagulation**: Initiate intravenous heparin to prevent further clot propagation.
+2. **Vascular Surgery Consultation**: Urgent evaluation for possible thrombectomy or endovascular intervention.
+3. **Imaging**: Perform contrast-enhanced CT angiography to assess the extent of thromboembolic disease.
+4. **Organ Support**: Monitor renal function closely; consider renal replacement therapy if acute kidney injury progresses.
+5. **Pain Management**: Address severe back pain with appropriate analgesia.
+6. **Multidisciplinary Care**: Coordinate with cardiology and hematology for underlying thromboembolic risk factors.
+
+Time-sensitive intervention is critical to prevent further ischemia and organ damage.
+------------------------------------------------------------
+Full conversation saved to conversation_3b72a000.json
+
+Liczba wiadomosci: 16
+
+####
+####
+####
+####
+Proposals: Hematologist:
+**Risk Assessment:**
+- High risk of life-threatening complications due to severe thrombotic event.
+- Total occlusion of the distal abdominal aorta with extensive intramural thrombus.
+
+**Treatment Plan:**
+- Immediate anticoagulation therapy (e.g., heparin) to prevent further thrombus propagation.
+- Urgent consultation with interventional radiology or vascular surgery for potential thrombolysis or surgical thrombectomy.
+- Close monitoring in an intensive care setting.
+- No evidence of aortic dissection, so focus on managing the thrombotic event.
+
+Vascular Surgeon:
+The patient has acute aortic occlusion due to thrombosis with involvement of renal and splenic arteries. Given the absence of dissection, the likely cause is thrombosis on a background of severe atherosclerosis.
+
+**Risk Assessment:**
+- High risk of mortality and morbidity due to organ and limb ischemia.
+- Immediate risk to kidneys, limbs, and visceral organs.
+
+**Treatment Plan:**
+1. **Emergency Surgery**: Thrombectomy or embolectomy to restore blood flow to the lower limbs and visceral organs.
+2. **Intra-arterial Thrombolysis**: Consider as an adjunct or alternative if surgery is not immediately feasible.
+3. **Supportive Care**: Anticoagulation, hemodynamic support, and close monitoring of renal function and limb perfusion.
+
+**Urgency:** Immediate intervention is required to prevent irreversible organ damage and death.
+
+Endovascular Interventionist:
+The absence of aortic dissection is reassuring. The patient has acute lower limb ischemia due to thrombotic occlusion of the distal abdominal aorta and bilateral iliac arteries, with additional thrombotic involvement. Immediate treatment is critical to prevent irreversible ischemic damage.
+
+**Risk Assessment:**
+- High risk of limb loss and systemic complications (e.g., rhabdomyolysis, renal failure).
+- Time-sensitive intervention required to restore perfusion.
+
+**Treatment Plan:**
+1. **Anticoagulation:** Initiate intravenous heparin immediately to prevent further thrombus propagation.
+2. **Endovascular Thrombolysis:** Perform catheter-directed thrombolysis to dissolve the thrombus.
+3. **Angioplasty and Stent Placement:** Following thrombolysis, assess for residual stenosis and perform angioplasty with stent placement as needed to restore vessel patency.
+4. **Monitoring:** Continuous hemodynamic and limb perfusion monitoring during and after the procedure.
+5. **Post-procedure:** Initiate long-term anticoagulation and address underlying thrombotic risk factors.
+
+Proceed to the angiography suite urgently.
+
+Nephrologist:
+The patient is at high risk for further thromboembolic complications and organ damage. Immediate treatment plan:
+
+1. **Anticoagulation**: Initiate intravenous heparin to prevent further clot propagation.
+2. **Vascular Surgery Consultation**: Urgent evaluation for possible thrombectomy or endovascular intervention.
+3. **Imaging**: Perform contrast-enhanced CT angiography to assess the extent of thromboembolic disease.
+4. **Organ Support**: Monitor renal function closely; consider renal replacement therapy if acute kidney injury progresses.
+5. **Pain Management**: Address severe back pain with appropriate analgesia.
+6. **Multidisciplinary Care**: Coordinate with cardiology and hematology for underlying thromboembolic risk factors.
+
+Time-sensitive intervention is critical to prevent further ischemia and organ damage.
+
+####
+####
+####
+####
+User prompt content: Hematologist:
+**Risk Assessment:**
+- High risk of life-threatening complications due to severe thrombotic event.
+- Total occlusion of the distal abdominal aorta with extensive intramural thrombus.
+
+**Treatment Plan:**
+- Immediate anticoagulation therapy (e.g., heparin) to prevent further thrombus propagation.
+- Urgent consultation with interventional radiology or vascular surgery for potential thrombolysis or surgical thrombectomy.
+- Close monitoring in an intensive care setting.
+- No evidence of aortic dissection, so focus on managing the thrombotic event.
+
+Vascular Surgeon:
+The patient has acute aortic occlusion due to thrombosis with involvement of renal and splenic arteries. Given the absence of dissection, the likely cause is thrombosis on a background of severe atherosclerosis.
+
+**Risk Assessment:**
+- High risk of mortality and morbidity due to organ and limb ischemia.
+- Immediate risk to kidneys, limbs, and visceral organs.
+
+**Treatment Plan:**
+1. **Emergency Surgery**: Thrombectomy or embolectomy to restore blood flow to the lower limbs and visceral organs.
+2. **Intra-arterial Thrombolysis**: Consider as an adjunct or alternative if surgery is not immediately feasible.
+3. **Supportive Care**: Anticoagulation, hemodynamic support, and close monitoring of renal function and limb perfusion.
+
+**Urgency:** Immediate intervention is required to prevent irreversible organ damage and death.
+
+Endovascular Interventionist:
+The absence of aortic dissection is reassuring. The patient has acute lower limb ischemia due to thrombotic occlusion of the distal abdominal aorta and bilateral iliac arteries, with additional thrombotic involvement. Immediate treatment is critical to prevent irreversible ischemic damage.
+
+**Risk Assessment:**
+- High risk of limb loss and systemic complications (e.g., rhabdomyolysis, renal failure).
+- Time-sensitive intervention required to restore perfusion.
+
+**Treatment Plan:**
+1. **Anticoagulation:** Initiate intravenous heparin immediately to prevent further thrombus propagation.
+2. **Endovascular Thrombolysis:** Perform catheter-directed thrombolysis to dissolve the thrombus.
+3. **Angioplasty and Stent Placement:** Following thrombolysis, assess for residual stenosis and perform angioplasty with stent placement as needed to restore vessel patency.
+4. **Monitoring:** Continuous hemodynamic and limb perfusion monitoring during and after the procedure.
+5. **Post-procedure:** Initiate long-term anticoagulation and address underlying thrombotic risk factors.
+
+Proceed to the angiography suite urgently.
+
+Nephrologist:
+The patient is at high risk for further thromboembolic complications and organ damage. Immediate treatment plan:
+
+1. **Anticoagulation**: Initiate intravenous heparin to prevent further clot propagation.
+2. **Vascular Surgery Consultation**: Urgent evaluation for possible thrombectomy or endovascular intervention.
+3. **Imaging**: Perform contrast-enhanced CT angiography to assess the extent of thromboembolic disease.
+4. **Organ Support**: Monitor renal function closely; consider renal replacement therapy if acute kidney injury progresses.
+5. **Pain Management**: Address severe back pain with appropriate analgesia.
+6. **Multidisciplinary Care**: Coordinate with cardiology and hematology for underlying thromboembolic risk factors.
+
+Time-sensitive intervention is critical to prevent further ischemia and organ damage.
+
+####
+####
+####
+####
+Conv summary: {
+  "diagnoses_confirmed": [
+    "acute aortic occlusion due to thrombosis",
+    "thrombotic occlusion of the distal abdominal aorta",
+    "acute lower limb ischemia"
+  ],
+  "treatment_plan": [
+    "Immediate anticoagulation therapy (e.g., heparin)",
+    "Emergency surgery: thrombectomy or embolectomy",
+    "Intra-arterial thrombolysis",
+    "Angioplasty and stent placement as needed",
+    "Supportive care: hemodynamic support and monitoring",
+    "Pain management for severe back pain"
+  ],
+  "next_steps": [
+    "Urgent consultation with interventional radiology or vascular surgery",
+    "Perform contrast-enhanced CT angiography",
+    "Close monitoring of renal function and limb perfusion",
+    "Multidisciplinary care coordination with cardiology and hematology"
+  ],
+  "risks": [
+    "High risk of life-threatening complications due to severe thrombotic event",
+    "High risk of mortality and morbidity due to organ and limb ischemia",
+    "Immediate risk to kidneys, limbs, and visceral organs",
+    "High risk of limb loss and systemic complications (e.g., rhabdomyolysis, renal failure)"
+  ],
+  "source_specialists": [
+    "Hematologist",
+    "Vascular Surgeon",
+    "Endovascular Interventionist",
+    "Nephrologist"
+  ],
+  "notes": null
+}
+Full conversation saved to conversation_3b72a000.json
+Creating reference summary...
+Comparing...
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [0.008129556, 0.0126000 ... 0.009135998]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 7, 'total_tokens': 7}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.028361559, -0.01115 ... -0.01440738]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 4, 'total_tokens': 4}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [0.01835266, -0.0107304 ... 0.009741462]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 5, 'total_tokens': 5}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.008274258, -0.01426 ... 018965028]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 26, 'total_tokens': 26}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.028079867, -0.00227 ... 019993104]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 18, 'total_tokens': 18}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.04555311, -0.000533 ... 015170152]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 18, 'total_tokens': 18}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.018720884, 0.013762 ... 015131419]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 13, 'total_tokens': 13}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.011658644, -0.00457 ... 012162541]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 14, 'total_tokens': 14}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.033442773, -0.01736 ... 021394614]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 14, 'total_tokens': 14}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.0026228845, 0.00978 ... 054353336]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 11, 'total_tokens': 11}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.0025634859, 0.01064 ... 0.010622738]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 8, 'total_tokens': 8}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [0.006134539, 0.0060174 ... 014800443]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 10, 'total_tokens': 10}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.029703353, 0.011750 ... 0.006887625]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 9, 'total_tokens': 9}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [0.020087417, -0.018996 ... 0.010555319]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 7, 'total_tokens': 7}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.010009101, 0.029604 ... 020668566]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 12, 'total_tokens': 12}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.009996901, -0.01056 ... 020700106]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 13, 'total_tokens': 13}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.02843645, 0.0198364 ... 003910012]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 14, 'total_tokens': 14}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.0039373813, 0.01633 ... .03534735]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 10, 'total_tokens': 10}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.016296167, 0.015288 ... 014280978]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 22, 'total_tokens': 22}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.0089450525, 0.01831 ... 018638615]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 17, 'total_tokens': 17}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.006670924, 0.012793 ... .03146605]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 11, 'total_tokens': 11}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [0.0073916, -0.00228456 ... 004553257]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 16, 'total_tokens': 16}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [0.0016329734, 0.021067 ... 009118298]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 12, 'total_tokens': 12}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [0.0028031813, 0.016180 ... 0.021098671]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 7, 'total_tokens': 7}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.014079967, 0.019304 ... 0.006831138]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 9, 'total_tokens': 9}}
+Embeddings:: {'object': 'list', 'data': [{'object': 'embedding', 'index': 0, 'embedding': [-0.0178193, 0.01647530 ... .02233453]}], 'model': 'text-embedding-3-large', 'usage': {'prompt_tokens': 12, 'total_tokens': 12}}
+Converstion - structured::
+{
+  "diagnoses_confirmed": [
+    "acute aortic occlusion due to thrombosis",
+    "thrombotic occlusion of the distal abdominal aorta",
+    "acute lower limb ischemia"
+  ],
+  "treatment_plan": [
+    "Immediate anticoagulation therapy (e.g., heparin)",
+    "Emergency surgery: thrombectomy or embolectomy",
+    "Intra-arterial thrombolysis",
+    "Angioplasty and stent placement as needed",
+    "Supportive care: hemodynamic support and monitoring",
+    "Pain management for severe back pain"
+  ],
+  "risks": [
+    "High risk of life-threatening complications due to severe thrombotic event",
+    "High risk of mortality and morbidity due to organ and limb ischemia",
+    "Immediate risk to kidneys, limbs, and visceral organs",
+    "High risk of limb loss and systemic complications (e.g., rhabdomyolysis, renal failure)"
+  ],
+  "next_steps": [
+    "Urgent consultation with interventional radiology or vascular surgery",
+    "Perform contrast-enhanced CT angiography",
+    "Close monitoring of renal function and limb perfusion",
+    "Multidisciplinary care coordination with cardiology and hematology"
+  ],
+  "source_specialists": [
+    "Hematologist",
+    "Vascular Surgeon",
+    "Endovascular Interventionist",
+    "Nephrologist"
+  ],
+  "notes": null
+}
+Reference   - structured::
+{
+  "diagnoses_confirmed": [],
+  "treatment_plan": [
+    "emergency bilateral lower limb angioplasty",
+    "athrombectomy",
+    "balloon angioplasty",
+    "catheter-directed thrombolysis (CDT) of the aortic thrombus with a bolus dose of 5 mg",
+    "infusion with tissue plasminogen activator (0.5 mg/hour)",
+    "systemic intravenous infusion of unfractionated heparin at 500 IU/hour",
+    "oral antiplatelet therapy with aspirin and clopidogrel",
+    "oral anticoagulant therapy with 5 mg warfarin daily"
+  ],
+  "risks": [
+    "deterioration of kidney function secondary to infarction"
+  ],
+  "next_steps": [
+    "monitoring in the intensive care unit (ICU) by a multidisciplinary team",
+    "follow-up by the nephrology team for kidney function",
+    "stage II pharmaco-mechanical thrombolysis in the catheterization lab"
+  ],
+  "source_specialists": [
+    "vascular surgeon",
+    "endovascular interventionist",
+    "nephrologist",
+    "hematologist"
+  ],
+  "notes": [
+    "abdominal angiogram showed patency of the distal aorta and iliac vessels, confirming successful recanalization after CDT",
+    "creatinine increased to 409 umol/L but improved with intravenous hydration",
+    "patient's general condition stabilized enough to be downgraded to the regular surgical floor",
+    "patient discharged in stable condition"
+  ]
+}
+===================
+=======RESULT======
+{'diagnoses_confirmed': 0.0, 'treatment_plan': 0.5625688476013462, 'risks': 0.4739535697304743, 'next_steps': 0.49415464343090515}
+
+(vnvchat) D:\proj\MEDVOICE\chat_chats\consilium_simulator>

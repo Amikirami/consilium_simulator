@@ -1,0 +1,37 @@
+,conversation,reference,score
+diagnoses_confirmed,,,0.0
+diagnoses_suspected,"multi-organ failure
+ hypercoagulable states
+ acute lower limb ischemia
+ critical limb ischemia",,0.0
+treatment_plan,"Initiate intravenous heparin for anticoagulation
+ Consider renal replacement therapy if acute kidney injury progresses
+ Urgent vascular surgery consultation
+ Perform further imaging (e.g., CT angiography)
+ Catheter-directed thrombolysis to dissolve the thrombus
+ Consider mechanical thrombectomy if thrombolysis is insufficient
+ Post-revascularization assessment for angioplasty and/or stent placement
+ Initiate IV fluids and pain management","Emergency bilateral lower limb angioplasty
+ Athrombectomy
+ Balloon angioplasty
+ Catheter-directed thrombolysis (CDT) of the aortic thrombus with a bolus dose of 5 mg
+ Infusion with tissue plasminogen activator (0.5 mg/hour)
+ Systemic intravenous infusion of unfractionated heparin at 500 IU/hour
+ Oral antiplatelet therapy of aspirin and clopidogrel
+ Oral anticoagulant therapy with 5 mg warfarin daily",0.4938484806553439
+risks,"High risk for multi-organ failure
+ High risk of limb loss
+ High risk of systemic complications
+ Potential for organ failure and mortality",Deterioration of kidney function secondary to infarction,0.46002305499842133
+next_steps,"Monitor kidney function closely
+ Assess for reperfusion injury and compartment syndrome post-procedure
+ Close monitoring of renal function, CPK, and LDH levels
+ Activate the hospital's rapid response team for monitoring and support
+ Consult interventional radiology and vascular surgery urgently","Monitoring in the intensive care unit (ICU) by a multidisciplinary team
+ Follow-up by the nephrology team for kidney function
+ Transfer to the catheterization lab for stage II pharmaco-mechanical thrombolysis
+ Downgrade to the regular surgical floor after stabilization",0.49115948310925645
+notes,"Time-sensitive intervention is critical to prevent further organ damage
+ Total occlusion indicated by CTA","An abdominal angiogram showed patency of the distal aorta and iliac vessels, confirming successful recanalization after CDT.
+ Creatinine increased to 409 umol/L but improved with intravenous hydration.
+ The patient showed dramatic improvement and was discharged in stable condition.",0.4235391239009013

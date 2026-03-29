@@ -1,0 +1,66 @@
+,conversation,reference,score
+diagnoses_confirmed,"Acute limb ischemia
+ Aortic dissection (suspected but not confirmed)
+ Type 2 diabetes
+ Hypertension
+ Ischemic heart disease (IHD)",,0.0
+diagnoses_suspected,"Aortic aneurysm
+ Aortic rupture
+ Myocardial ischemia
+ Unstable angina
+ NSTEMI
+ Mesenteric ischemia
+ Pancreatitis
+ Gastrointestinal issues (volvulus, perforation)
+ Pulmonary embolism
+ Acute coronary syndrome (ACS)",,0.0
+treatment_plan,"Imaging (Doppler ultrasound, CT angiography)
+ IV fluids
+ Pain management
+ Surgical preparation (embolectomy, bypass surgery)
+ Anticoagulation therapy
+ Vascular consultation
+ Angiography
+ Thrombectomy
+ Supportive care
+ Unfractionated heparin
+ Percutaneous translational occlusion (PTO)
+ Embolectomy with mechanical thrombus retrieval
+ Cardiac catheterization
+ Angioplasty/stenting
+ Endovascular repair
+ Tight glycemic control","Emergency bilateral lower limb angioplasty including athrombectomy, balloon angioplasty, and catheter-directed thrombolysis (CDT)
+ Tissue plasmin activator infusion at 0.5 mg/hour
+ Systemic intravenous infusion of unfractionated heparin at 500 IU/hour
+ Oral antiplatelet therapy with aspirin and clopidogrel
+ Stage II pharmaco-mechanical thrombolysis
+ Intravenous hydration
+ Oral anticoagulant therapy with warfarin 5 mg daily",0.5705772795955422
+risks,"Irreversible limb damage
+ Systemic complications
+ Embolic sources (cardiac arrhythmias, thrombus)
+ Acute kidney injury
+ Shock
+ Systemic involvement
+ Ischemic injury/muscle necrosis
+ Compartment syndrome
+ Limb loss
+ Cardiogenic complications (arrhythmias)
+ Rhabdomyolysis-induced hyperkalemia
+ Thrombolytic therapy bleeding","Deterioration of kidney function
+ Infarction",0.545729284011816
+next_steps,"Expedite all actions
+ Immediate treatment
+ Risk stratification
+ Coronary angiography
+ CT angiography of the aorta
+ Repeat imaging
+ Cardiac workup","Transfer to intensive care unit (ICU) for monitoring by a multidisciplinary team
+ Follow-up with nephrology team for kidney function monitoring
+ Downgrade to regular surgical floor after stabilization
+ Discharge once stable",0.34573712814030577
+notes,"Patient is a 41-year-old male with significant comorbidities.
+ Symptoms include severe back pain, nausea, vomiting, weakness in legs, and absent peripheral pulses.
+ Initial CT scan showed no evidence of aortic dissection.","Aortic thrombus present
+ Distal aorta and iliac vessels successfully recanalized after CDT
+ Creatinine level increased to 409 umol/L but improved with treatment",0.35133305143771426

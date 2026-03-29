@@ -1,0 +1,33 @@
+,conversation,reference,score
+diagnoses_confirmed,"Acute limb ischemia
+ Aortic and peripheral arterial thrombosis
+ Kidney and spleen infarctions",,0.0
+diagnoses_suspected,,,0.0
+treatment_plan,"Thrombectomy or angioplasty of the distal abdominal aorta and iliac arteries
+ Surgical revascularization (embolectomy or bypass)
+ Catheter-based thrombolysis and angioplasty
+ Stent placement if needed
+ Immediate anticoagulation with IV heparin
+ Thrombolysis or thrombectomy
+ Surgical intervention if thrombolytic/thromboembolic treatment fails
+ IV fluids and pain management","Emergency bilateral lower limb angioplasty including athrombectomy, balloon angioplasty, and catheter-directed thrombolysis (CDT)
+ Tissue plasmin activator infusion
+ Systemic intravenous infusion of unfractionated heparin
+ Oral antiplatelet therapy with aspirin and clopidogrel
+ Oral anticoagulant therapy with warfarin",0.5460966910245169
+risks,"Irreversible limb damage
+ Further thrombotic events
+ Organ failure
+ Death",,0.0
+next_steps,"Obtain vascular imaging (Doppler ultrasound or CT angiography)
+ Monitor renal, splenic, and cardiac function
+ Continuous vital signs and limb monitoring
+ Urgent vascular surgery consultation
+ Prepare for potential bleeding complications with a massive transfusion protocol","Transfer to ICU for monitoring by a multidisciplinary team
+ Stage II pharmaco-mechanical thrombolysis in the catheterization lab
+ Intravenous hydration to improve kidney function
+ Downgrade to the regular surgical floor after stabilization
+ Discharge once stable",0.3935451586061042
+notes,,"Aortic thrombus present
+ Deterioration of kidney function secondary to infarction
+ Creatinine increase to 409 umol/L, improved with treatment",0.0
