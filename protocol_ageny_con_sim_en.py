@@ -14,9 +14,7 @@ import numpy as np
 import logging
 import pandas as pd
 from embedding_openai import EmbeddingClient
-
-# TODO: Or not TO-DO: 429: Too many requests
-
+from openai import OpenAI
 
 logging.basicConfig(
     level=logging.INFO,
@@ -25,82 +23,6 @@ logging.basicConfig(
     filename='out-prot/portocol_agntconsim.log'
 )
 logger = logging.getLogger(__name__)
-
-
-async def model_supports_chat(model: str, token: str) -> bool:
-    url = "https://models.github.ai/inference/chat/completions"
-    headers = {
-        "Accept": "application/vnd.github+json",
-        "Authorization": f"Bearer {token}",
-        "X-GitHub-Api-Version": "2026-03-10",
-        "Content-Type": "application/json"
-    }
-
-    payload = {
-        "model": model,
-        "messages": [{"role": "user", "content": "ping"}],
-        "max_tokens": 1
-    }
-
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        resp = await client.post(url, headers=headers, json=payload)
-
-        if resp.status_code == 200:
-            return True
-
-        logging.info(f"Model: {model} - {resp.text}")
-
-        if resp.status_code == 400:
-            # sprawdzamy kod błędu
-            try:
-                data = resp.json()
-                logging.error(f"Model: {model} - {data}")
-                print("model_supports_chat:400:", data)
-                if data.get("error", {}).get("code") == "OperationNotSupported":
-                    print(data.get("error", {}).get("code"))
-                    return False
-            except httpx.ReadTimeout as e:
-                print(f"!! HTTPX !!: {e}")
-                pass
-            except Exception as e:
-                print(f"!! ERROR !!: {e}")
-                pass
-
-        return False
-
-
-def get_github_models():
-    url = "https://models.github.ai/catalog/models"
-    headers = {
-        "Accept": "application/vnd.github+json",
-        "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
-        "X-GitHub-Api-Version": "2026-03-10",
-    }
-
-    try:
-        model_ids = []
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Check for HTTP errors
-
-        models = response.json()
-
-        # for m in models:
-        #     print(m, ",", sep="")
-
-        # print(f"{'ID':<44} | {'Publisher':<15} | {'Modalities'}")
-        print(f"{'ID':<44} | {'Publisher':<12} | {'Tags'}")
-        print("-" * 65)
-
-        for model in models:
-            m_id = model.get('id', 'N/A')
-            publisher = model.get('publisher', 'N/A')
-            # modalities = ", ".join(model.get('supported_input_modalities', []))
-            modalities = ", ".join(model.get('tags', []))
-            print(f"{m_id:<44} | {publisher:<15} | {modalities}")
-            model_ids.append(m_id)
-        return model_ids
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching models: {e}")
 
 
 @dataclass
@@ -129,114 +51,75 @@ def remove_think_blocks(text: str) -> str:
     return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
 
 
-class GitHubModel:
-    def __init__(self, model_name: str, api_key: str):
+class OpenAIModel:
+    def __init__(self, model_name: str, api_key: str = None):
         self.model_name = model_name
-        self.api_key = api_key
-        self.url = "https://models.github.ai/inference/chat/completions"
-
-        self.headers = {
-            "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {self.api_key}",
-            "X-GitHub-Api-Version": "2026-03-10",
-            "Content-Type": "application/json"
-        }
+        self.client = OpenAI(api_key=api_key)
 
     async def generate(self, prompt: str) -> str:
-        payload = {
-            "model": self.model_name,
-            "messages": [
-                # {"role": "system", "content": "You must not use chain-of-thought or reasoning. Do not output <think> tags. Respond with the final answer only. nothink. /nothink /no_think"},
-                {"role": "system", "content": """Do not reveal chain-of-thought. 
-                Provide only the final answer or a short explanation. 
+        messages = [
+            {
+                "role": "developer",
+                "content": (
+                    "Do not reveal chain-of-thought. "
+                    "Provide only the final answer or a short explanation. "
+                    "nothink /nothink /no_think"
+                )
+            },
+            {
+                "role": "user",
+                "content": (
+                        "Respond concisely. Do not include <think> or hidden reasoning. /nothink "
+                        + prompt
+                )
+            }
+        ]
 
-                nothink /nothink /no_think"""
-                 },
-                {"role": "user",
-                 "content": "Respond concisely.  Do not include <think> or any hidden reasoning. /nothink   " + prompt}]
-            ,
-            "max_tokens": 800,
-            "temperature": 0.2,
-            "stream": False,
-            # "think": False
-        }
-        logger.info(f"Calling LLM: model={self.model_name}, user_prompt_len={len(prompt)}")
-        sleep(60)
+        logger.info(f"Calling LLM (Responses API): model={self.model_name}, user_prompt_len={len(prompt)}")
+        sleep(1)
 
+        print("genrate:model:", self.model_name)
+        reasoning_params = (
+            {"reasoning": {"effort": "low"}}
+            if self.model_name in {"o1", "o3", "o3-mini", "o4", "gpt-5", "gpt-5-mini"}
+            else {"temperature": 0.2}
+        )
         try:
-            async with httpx.AsyncClient(timeout=60.0) as client:
-                resp = await client.post(self.url, headers=self.headers, json=payload)
+            response = self.client.responses.create(
+                model=self.model_name,
+                input=messages,
+                max_output_tokens=2048,
+                **reasoning_params
+            )
 
-                # for k, v in resp.headers.items():
-                #     print(k, v)
+            # Responses API returns output in response.output_text
+            return response.output_text.strip()
 
-                # odczyt nagłówków rate limit
-                # remaining = resp.headers.get("x-ratelimit-remaining-requests")
-                # remtok = resp.headers.get("x-ratelimit-remaining-tokens")
-                # errors = resp.headers.get("x-ratelimit-errors")
-                # print("RateLimit remaining:", remaining)
-                # print("RateLimit rem. tokens:", remtok)
-                #
-                # x-ms-error-code RateLimitReached
-                # x-ratelimit-timeremaining 28
-                # x-ratelimit-type UserByModelByMinute
-                #
-                fragments = ("ratelimit", "error")
-                filtered = {
-                    k: v for k, v in resp.headers.items()
-                    if any(f.lower() in k.lower() for f in fragments)
-                }
-                print()
-                for k, v in filtered.items():
-                    print(k, v)
-                    logging.debug(f"{k}: {v}")
-                print()
-
-                resp.raise_for_status()
-                data = resp.json()
-
-                if "choices" in data and len(data["choices"]) > 0:
-                    return remove_think_blocks(data["choices"][0]["message"]["content"].strip())
-                return "No model response"
-
-        except httpx.HTTPStatusError as e:
-            print(f"API error {e.response.status_code}: {e.response.text[:100]}")
-            logging.error(f"API error {e.response.status_code}: {e.response.text}")
-            # return f"API error {e.response.status_code}: {e.response.text[:100]}"
-            raise
         except Exception as e:
-            logging.error(f"API error {str(e)}")
+            logger.error(f"OpenAI API error: {str(e)}")
             return f"Error: {str(e)}"
 
     async def generate_role(self, messages) -> str:
-        """
-        messages: list of dicts, each dict = {"role": "...", "content": "..."}
-        """
+        logger.info(f"Calling LLM (Responses API): generate_role model={self.model_name}")
 
-        payload = {
-            "model": self.model_name,
-            "messages": messages,
-            "max_tokens": 800,
-            "temperature": 0.2,
-            "stream": False
-        }
-        logger.info(f"Calling LLM: generate_role model={self.model_name}")
+        reasoning_params = (
+            {"reasoning": {"effort": "low"}}
+            if self.model_name in {"o1", "o3", "o3-mini", "o4", "gpt-5", "gpt-5-mini"}
+            else {"temperature": 0.2}
+        )
         try:
-            async with httpx.AsyncClient(timeout=60.0) as client:
-                resp = await client.post(self.url, headers=self.headers, json=payload)
-                resp.raise_for_status()
-                data = resp.json()
+            response = self.client.responses.create(
+                model=self.model_name,
+                input=messages,
+                max_output_tokens=2048,
+                # temperature=0.2
+                **reasoning_params
+            )
 
-                if "choices" in data and len(data["choices"]) > 0:
-                    return remove_think_blocks(data["choices"][0]["message"]["content"].strip())
-                return "No model response"
+            return response.output_text.strip()
 
-        except httpx.HTTPStatusError as e:
-            print(f"API error {e.response.status_code}: {e.response.text[:100]}")
-            logging.error(f"API error {e.response.status_code}: {e.response.text}")
-            return f"API error {e.response.status_code}: {e.response.text[:100]}"
         except Exception as e:
-            logging.error(f"API error {str(e)}")
+            logger.error(f"OpenAI API error: {str(e)}")
             return f"Error: {str(e)}"
 
 
@@ -259,7 +142,7 @@ def analyze_agent_response(reply):
 
 
 class Agent:
-    def __init__(self, name: str, role: str, specialization: str, model: GitHubModel):
+    def __init__(self, name: str, role: str, specialization: str, model: OpenAIModel):
         self.name = name
         self.role = role
         self.specialization = specialization
@@ -270,10 +153,14 @@ class Agent:
         return self.model.model_name
 
     def add_fact(self, fact: str):
-        self.memory.append(fact[:200])
+        print(f"{self.name} - fact len:", len(fact))
+        # self.memory.append(fact[:200])
+        if len(fact) > 0:
+            self.memory.append(fact)
 
     def _build_context(self, incoming: str) -> str:
-        recent_memory = "\n".join(self.memory[-3:])
+        # recent_memory = "\n".join(self.memory[-3:])
+        recent_memory = "\n".join(self.memory[-8:])
         return f"""You are {self.name} ({self.role}).
             Specialization: {self.specialization}
 
@@ -287,12 +174,12 @@ class Agent:
 
     async def handle_message(self, msg: ACLMessage) -> Optional[ACLMessage]:
         prompt = self._build_context(msg.content)
-        await asyncio.sleep(60)
+        await asyncio.sleep(10)
         try:
             reply_text = await self.model.generate(prompt)
         except httpx.HTTPStatusError as e:
             raise
-        sleep(60)
+        sleep(10)
 
         # performative_map = {
         #     "inform": "inform",
@@ -365,8 +252,8 @@ class ConversationManager:
                     metadata={"receiver_model": self.agents[name].get_my_model()}
                 )
                 await self._deliver(msg)
-                await asyncio.sleep(60)
-                sleep(60)
+                await asyncio.sleep(10)
+                sleep(5)
 
         return conv_id
 
@@ -441,46 +328,46 @@ def cosine_similarity(a, b):
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
 
-async def embed_fn(text: str, token: str, model: str = "openai/text-embedding-3-large"):
-    url = "https://models.github.ai/inference/embeddings"
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "X-Model": model,
-    }
-    payload = {
-        "input": text,
-        "model": model
-    }
-    sleep(60)
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        resp = await client.post(url, headers=headers, json=payload)
-        resp.raise_for_status()
-        data = resp.json()
-
-    # GitHub Models zwraca embedding w data["data"][0]["embedding"]
-    print("Embeddings::", str(data)[:100], "...", str(data)[-100:])
-    return data["data"][0]["embedding"]
+# async def embed_fn(text: str, token: str, model: str = "openai/text-embedding-3-large"):
+#     url = "https://models.github.ai/inference/embeddings"
+#     headers = {
+#         "Authorization": f"Bearer {token}",
+#         "X-Model": model,
+#     }
+#     payload = {
+#         "input": text,
+#         "model": model
+#     }
+#     sleep(10)
+#     async with httpx.AsyncClient(timeout=60.0) as client:
+#         resp = await client.post(url, headers=headers, json=payload)
+#         resp.raise_for_status()
+#         data = resp.json()
+#
+#     # GitHub Models zwraca embedding w data["data"][0]["embedding"]
+#     print("Embeddings::", str(data)[:100], "...", str(data)[-100:])
+#     return data["data"][0]["embedding"]
 
 
 # !!! G..no się zrobi darmochą !!!
-async def list_embedding_similarity(list1, list2, embed_fn):
-    if not list1 and not list2:
-        return 1.0
-    if not list1 or not list2:
-        return 0.0
-
-    # embeddingi dla obu list
-    emb1 = [await embed_fn(x, os.environ['GITHUB_TOKEN']) for x in list1]
-    sleep(30)
-    emb2 = [await embed_fn(x, os.environ['GITHUB_TOKEN']) for x in list2]
-    sleep(30)
-
-    scores = []
-    for e1 in emb1:
-        best = max(cosine_similarity(e1, e2) for e2 in emb2)
-        scores.append(best)
-
-    return round(float(sum(scores) / len(scores)), 3)
+# async def list_embedding_similarity(list1, list2, embed_fn):
+#     if not list1 and not list2:
+#         return 1.0
+#     if not list1 or not list2:
+#         return 0.0
+#
+#     # embeddingi dla obu list
+#     emb1 = [await embed_fn(x, os.environ['GITHUB_TOKEN']) for x in list1]
+#     sleep(30)
+#     emb2 = [await embed_fn(x, os.environ['GITHUB_TOKEN']) for x in list2]
+#     sleep(30)
+#
+#     scores = []
+#     for e1 in emb1:
+#         best = max(cosine_similarity(e1, e2) for e2 in emb2)
+#         scores.append(best)
+#
+#     return round(float(sum(scores) / len(scores)), 3)
 
 
 # async def compare_conv_summaries_embeddings(a: TreatmentProposal, b: TreatmentProposal, embed_fn):
@@ -514,17 +401,6 @@ def merge_proposals(reports: list[ACLMessage]) -> str:
             parts.append(f"{report.sender}:\n{report.content}")
 
     return "\n\n".join(parts)
-
-
-# def parse_conv_summary(text: str) -> TreatmentProposal:
-#     # znajdź blok { ... }
-#     match = re.search(r"\{.*\}", text, flags=re.DOTALL)
-#     if not match:
-#         raise ValueError("Nie znaleziono JSON w tekście")
-#
-#     json_text = match.group(0)
-#     data = json.loads(json_text)
-#     return TreatmentProposal(**data)
 
 
 from dataclasses import fields
@@ -568,12 +444,20 @@ def append_to_json_list(path, item):
 
 
 async def main():
-    API_KEY = os.environ['GITHUB_TOKEN']
-    K = 4
+    # API_KEY = os.environ['GITHUB_TOKEN']
+    API_KEY = None
+    medical_case_number = 2
 
-    logging.info("Staring program")
+    logging.info(f"Staring main, med. case: {medical_case_number}")
+    print(f"Staring main, medical case: {medical_case_number}")
 
-    avail_models = get_github_models()
+    def counter(N):
+        i = 0
+        while True:
+            yield i
+            i = (i + 1) % (N + 1)
+
+    # avail_models = get_github_models()
 
     # Random choice ---------------------------------------------------------------------------
     # non_completion = set()
@@ -592,46 +476,51 @@ async def main():
     #
     # Specified choice
     # Check if available
-    model_list = []
-    non_completion = set()
-    candidates = [
-        # "openai/gpt-4o",
-        "openai/gpt-4o-mini",
-        # "openai/gpt-5",
-        "openai/gpt-5-mini",
-        # "openai/gpt-5-chat",
-        "openai/o1-preview",
-        # "openai/o1",
-        "openai/o1-mini",
-        # "openai/o3",
-        "openai/o3-mini",
-        # "microsoft/phi-4-reasoning",  # timeout
-        "microsoft/phi-4-mini-reasoning",
-        # "deepseek/deepseek-r1",
-        # "deepseek/deepseek-r1-0528",
-        "meta/meta-llama-3.1-405b-instruct",
-        "meta/llama-3.3-70b-instruct",
+    # model_list = []
+    # non_completion = set()
+    # candidates = [
+    #     # "openai/gpt-4o",
+    #     "openai/gpt-4o-mini",
+    #     # "openai/gpt-5",
+    #     "openai/gpt-5-mini",
+    #     # "openai/gpt-5-chat",
+    #     "openai/o1-preview",
+    #     # "openai/o1",
+    #     "openai/o1-mini",
+    #     # "openai/o3",
+    #     "openai/o3-mini",
+    #     # "microsoft/phi-4-reasoning",  # timeout
+    #     "microsoft/phi-4-mini-reasoning",
+    #     "deepseek/deepseek-r1",
+    #     # "deepseek/deepseek-r1-0528",
+    #     "meta/meta-llama-3.1-405b-instruct",
+    #     # "meta/llama-3.3-70b-instruct",
+    # ]
+    # while len(model_list) < K:
+    #     candidates = [x for x in candidates if x not in non_completion]
+    #     if not candidates:
+    #         break
+    #     model_ = candidates[0]
+    #     print(f"Checking model: {model_}")
+    #     if not await model_supports_chat(model_, API_KEY):
+    #         non_completion.add(model_)
+    #     else:
+    #         model_list.append(model_)
+    #         non_completion.add(model_)
+    #     sleep(10)
+    #
+    # num_models = len(model_list)
+    # c = counter(num_models-1)
+
+    model_list = [
+        "gpt-4o",
+        "gpt-5-mini",
+        "o1",
+        "o3",
+        "o3-mini",
+        "o4‑mini‑deep‑research",
+        "gpt-5.1",
     ]
-
-    def counter(N):
-        i = 0
-        while True:
-            yield i
-            i = (i + 1) % (N + 1)
-
-    while len(model_list) < K:
-        candidates = [x for x in candidates if x not in non_completion]
-        if not candidates:
-            break
-        model_ = candidates[0]
-        print(f"Checking model: {model_}")
-        if not await model_supports_chat(model_, API_KEY):
-            non_completion.add(model_)
-        else:
-            model_list.append(model_)
-            non_completion.add(model_)
-        sleep(10)
-
     num_models = len(model_list)
     c = counter(num_models - 1)
 
@@ -639,18 +528,18 @@ async def main():
     # print("openai/gpt-4o-mini::", await model_supports_chat("openai/gpt-4o-mini", API_KEY))
 
     # Model for structurize summarize
-    # sum_struct_model_name = "openai/gpt-4o-mini"
+    sum_struct_model_name = "gpt-4o-mini"
     # sum_struct_model_name = "cohere/cohere-command-r-plus-08-2024"
-    sum_struct_model_name = "xai/grok-3"
+    # sum_struct_model_name = "xai/grok-3"
     print("Summarize structured model: ", sum_struct_model_name)
-    if not await model_supports_chat(sum_struct_model_name, API_KEY):
-        return
+    # if not await model_supports_chat(sum_struct_model_name, API_KEY):
+    #     return
 
     # cardio_model = GitHubModel(model_list[0], API_KEY)
-    nephro_model = GitHubModel(model_list[next(c)], API_KEY)
-    hema_model = GitHubModel(model_list[next(c)], API_KEY)
-    vascular_model = GitHubModel(model_list[next(c)], API_KEY)
-    endo_model = GitHubModel(model_list[next(c)], API_KEY)
+    nephro_model = OpenAIModel(model_list[next(c)], API_KEY)
+    hema_model = OpenAIModel(model_list[next(c)], API_KEY)
+    vascular_model = OpenAIModel(model_list[next(c)], API_KEY)
+    endo_model = OpenAIModel(model_list[next(c)], API_KEY)
 
     # cardio = Agent("Cardiologist", "Cardiovascular system analysis", "Expert in heart attacks and thrombosis",
     #                cardio_model)
@@ -726,9 +615,9 @@ async def main():
     print("\n####" * 4, "\nUser prompt content:", specialist_replies)
     #
 
-    summarizer = GitHubModel(sum_struct_model_name, API_KEY)
+    summarizer = OpenAIModel(sum_struct_model_name, API_KEY)
     summarizer_prompts = [
-        {"role": "system", "content": PromptsEN.SUMMARIZER_SYSTEM},
+        {"role": "developer", "content": PromptsEN.SUMMARIZER_SYSTEM},
         {"role": "user", "content": user_content},
     ]
 
@@ -746,18 +635,18 @@ async def main():
     }
 
     filename = f"out-prot/conversation_{conv_id[:8]}.json"
-    # # Hacky add summary to json
-    # with open(filename, "a+", encoding="utf-8") as f:
-    #     f.seek(0)
-    #     txt = f.read()
-    #     pos = txt.rfind("]")
-    #     if pos != -1:
-    #         txt = txt[:pos]
-    #     f.seek(0)
-    #     f.write(txt)
-    #     f.write(",\n")
-    #     json.dump(add_data, f, indent=2, ensure_ascii=False)
-    #     f.write("]\n")
+    # Hacky add summary to json
+    with open(filename, "a+", encoding="utf-8") as f:
+        f.seek(0)
+        txt = f.read()
+        pos = txt.rfind("]")
+        if pos != -1:
+            txt = txt[:pos]
+        f.seek(0)
+        f.write(txt)
+        f.write(",\n")
+        json.dump(add_data, f, indent=2, ensure_ascii=False)
+        f.write("]\n")
 
     append_to_json_list(filename, add_data)
 
@@ -773,13 +662,13 @@ async def main():
     # full_history.append(add_data)
 
     #
-    reference = PromptsEN.REFERENCE_TREATMENT
+    reference = PromptsEN.DIAGNOSIS + "\n" + PromptsEN.REFERENCE_TREATMENT
     summarizer_prompts = [
-        {"role": "system", "content": PromptsEN.SUMMARIZER_SYSTEM},
+        {"role": "developer", "content": PromptsEN.SUMMARIZER_SYSTEM},
         {"role": "user", "content": reference},
     ]
     print("Creating reference summary...")
-    sleep(60)
+    sleep(10)
     reference_summary = await summarizer.generate_role(summarizer_prompts)
     cs = parse_conv_summary(conv_summary)
     rs = parse_conv_summary(reference_summary)
@@ -792,7 +681,7 @@ async def main():
     print(json.dumps(asdict(rs), indent=2, ensure_ascii=False))
 
     # asses_result(cs, rs)
-    sleep(60)
+    sleep(10)
     print("Comparing...")
     # result = await compare_conv_summaries_embeddings(rs, cs, embed_fn)
 
@@ -818,7 +707,6 @@ async def main():
     print("=======RESULT======")
     print(result)
 
-    # zamień na DataFrame
     clean_cs = {k: json.dumps(v, ensure_ascii=False) for k, v in asdict(cs).items()}
     df1 = pd.DataFrame.from_dict(clean_cs, orient="index", columns=["conversation"])
     df1["conversation"] = df1["conversation"].apply(lambda x: json.loads(x) if isinstance(x, str) else str(x))
